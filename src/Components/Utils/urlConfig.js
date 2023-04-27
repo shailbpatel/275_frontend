@@ -5,4 +5,4 @@ const clinetID =
 
 const secretKey = "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";
 
-export default dynamicURL;
+export default { dynamicURL, clinetID, secretKey };

@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import dynamicURL from "../Utils/urlConfig";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { gapi } from "gapi-script";
+import jwt_decode from "jwt-decode";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -74,10 +77,21 @@ const Login = () => {
             <button type="submit" className={styles.green_btn}>
               Sing In
             </button>
+            <p>or</p>
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                var token = credentialResponse.credential;
+                var decoded = jwt_decode(token);
+                console.log(decoded);
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
           </form>
         </div>
         <div className={styles.right}>
-          <h1>New Here ?</h1>
+          <h1>New Here?</h1>
           <Link to="/signup">
             <button type="button" className={styles.white_btn}>
               Sing Up

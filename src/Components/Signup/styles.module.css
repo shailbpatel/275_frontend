@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .signup_form_container {
@@ -22,7 +23,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #3bb19b;
+  background-color: #4c35de;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -33,7 +34,9 @@
   font-size: 35px;
   align-self: center;
 }
-
+.heading {
+  margin-top: -5%;
+}
 .right {
   flex: 2;
   display: flex;
@@ -92,9 +95,10 @@
 }
 
 .green_btn {
-  background-color: #3bb19b;
+  background-color: #4c35de;
   color: white;
   margin: 10px;
+  margin-bottom: 0%;
 }
 
 .dropdown {
@@ -108,8 +112,17 @@
   font-size: 14px;
 }
 .role {
-  margin-right: 77%;
+  margin-right: 0%;
   margin-top: 2%;
+  width: 90% !important;
+  font-family: "Helvetica Neue";
+}
+
+.googleLogin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.2rem;
 }
 
 #dropdown {

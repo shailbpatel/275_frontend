@@ -4,7 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import dynamicURL from "../Utils/urlConfig";
 import Select from "react-select";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import {
+  GoogleOAuthProvider,
+  useGoogleLogin,
+  GoogleLogin,
+} from "@react-oauth/google";
+import { gapi } from "gapi-script";
 import jwt_decode from "jwt-decode";
 
 const Signup = () => {
@@ -54,7 +59,7 @@ const Signup = () => {
     <div className={styles.signup_container}>
       <div className={styles.signup_form_container}>
         <div className={styles.left}>
-          <h1>Welcome Back</h1>
+          <h2 style={{ color: "white" }}>Already have an account?</h2>
           <Link to="/login">
             <button type="button" className={styles.white_btn}>
               Sing in
@@ -63,7 +68,7 @@ const Signup = () => {
         </div>
         <div className={styles.right}>
           <form className={styles.form_container} onSubmit={handleSubmit}>
-            <h1>Create Account</h1>
+            <h1 className="heading">Create an Account</h1>
             <input
               type="text"
               placeholder="Name"
@@ -73,15 +78,6 @@ const Signup = () => {
               required
               className={styles.input}
             />
-            {/* <input
-              type="text"
-              placeholder="Last Name"
-              name="lastName"
-              onChange={handleChange}
-              value={data.lastName}
-              required
-              className={styles.input}
-            /> */}
             <input
               type="email"
               placeholder="Email"
@@ -108,6 +104,7 @@ const Signup = () => {
               required
               onChange={handleChange}
               className={styles.dropdown}
+              style={{ width: "91%", height: "90%" }}
             >
               <option label="Employee">Employee</option>
               <option label="Employer">Employer</option>
@@ -163,26 +160,30 @@ const Signup = () => {
               className={styles.input}
             />
             {error && <div className={styles.error_msg}>{error}</div>}
-            <button
-              type="submit"
-              className={styles.green_btn}
-              onClick={(handleClick) => {
-                console.log("Data :", data);
-              }}
-            >
-              Sing Up
-            </button>
+            <div className={styles.googleLogin}>
+              <button
+                type="submit"
+                className={styles.green_btn}
+                onClick={(handleClick) => {
+                  console.log("Data :", data);
+                }}
+              >
+                Sing Up
+              </button>
+              <p>or</p>
+              <GoogleLogin
+                clientId="1043703980146-807tc000l9hlh34efgp0qhued09qjk10.apps.googleusercontent.com"
+                onSuccess={(codeResponse) => {
+                  var token = codeResponse;
+                  // var decoded = jwt_decode(token);
+                  console.log(token);
+                }}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              />
+            </div>
           </form>
-          <GoogleLogin
-            onSuccess={(credentialResponse) => {
-              var token = credentialResponse.credential;
-              var decoded = jwt_decode(token);
-              console.log(decoded);
-            }}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-          />
         </div>
       </div>
     </div>
