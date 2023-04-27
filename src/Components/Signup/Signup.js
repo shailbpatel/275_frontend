@@ -31,6 +31,7 @@ const Signup = () => {
     // if (Validity(data)) {
     //   //submit
     // }
+    //hello
     e.preventDefault();
     // try {
     //   //api for new user registration
