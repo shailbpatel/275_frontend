@@ -104,7 +104,7 @@
 .dropdown {
   outline: none;
   border: none;
-  width: -webkit-fill-available;
+  width: 77% !important;
   padding: 15px;
   border-radius: 10px;
   background-color: #edf5f3;
@@ -114,7 +114,7 @@
 .role {
   margin-right: 0%;
   margin-top: 2%;
-  width: 90% !important;
+  width: 75% !important;
   font-family: "Helvetica Neue";
 }
 

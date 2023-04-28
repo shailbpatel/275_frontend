@@ -59,7 +59,9 @@ const Signup = () => {
     <div className={styles.signup_container}>
       <div className={styles.signup_form_container}>
         <div className={styles.left}>
-          <h2 style={{ color: "white" }}>Already have an account?</h2>
+          <h2 style={{ color: "white", marginLeft: "2rem" }}>
+            Already have an account?
+          </h2>
           <Link to="/login">
             <button type="button" className={styles.white_btn}>
               Sing in
@@ -104,7 +106,6 @@ const Signup = () => {
               required
               onChange={handleChange}
               className={styles.dropdown}
-              style={{ width: "91%", height: "90%" }}
             >
               <option label="Employee">Employee</option>
               <option label="Employer">Employer</option>

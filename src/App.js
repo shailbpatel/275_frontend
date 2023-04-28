@@ -3,6 +3,7 @@ import Signup from "./Components/Signup/Signup";
 import Navbar from "./Components/Header/Navbar";
 import Login from "./Components/Login/index";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import LandingPage from "./Components/LandingPage/LandingPage";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Navbar />
         <GoogleOAuthProvider clientId="1043703980146-807tc000l9hlh34efgp0qhued09qjk10.apps.googleusercontent.com">
           <Routes>
+            <Route path="/" exact element={<LandingPage />} />
             <Route path="/signup" exact element={<Signup />} />
             <Route path="/login" exact element={<Login />} />
           </Routes>

@@ -1,0 +1,112 @@
+.video {
+  width: 90vh;
+  height: 60vh;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.content {
+  font-family: inherit;
+  font-size: larger;
+  font-weight: bold;
+  text-align: center;
+  margin-left: 5rem;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Spartan:wght@700&display=swap");
+body,
+html {
+  height: 100vh;
+  width: 100vw;
+}
+
+body {
+  background: white;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: "Spartan", sans-serif;
+  color: #2d2d2d;
+}
+
+::-moz-selection {
+  background: rgba(170, 170, 170, 0.3);
+}
+
+::selection {
+  background: rgba(170, 170, 170, 0.3);
+}
+
+.heading {
+  margin: 80px 0 0 80px;
+  font-size: 64px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+}
+.heading > div {
+  overflow: hidden;
+}
+.heading > div > p {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  white-space: nowrap;
+  margin: 0;
+  line-height: 117%;
+}
+
+.green {
+  color: #32c267;
+}
+
+div.heading > div {
+  -webkit-animation-delay: 0;
+  animation-delay: 0;
+}
+div.heading > div:nth-child(2) > p {
+  -webkit-animation-delay: 0.05s;
+  animation-delay: 0.05s;
+}
+
+div.heading > div {
+  -webkit-animation-delay: 0;
+  animation-delay: 0;
+}
+div.heading > div:nth-child(3) > p {
+  -webkit-animation-delay: 0.075s;
+  animation-delay: 0.075s;
+}
+
+.slide-up {
+  font-size: xx-large;
+  margin-left: 10%;
+  -webkit-animation: slide-up 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
+  animation: slide-up 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@-webkit-keyframes slide-up {
+  0% {
+    transform: translateY(100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
