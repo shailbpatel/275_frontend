@@ -2,8 +2,9 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
-import dynamicURL from "../Utils/urlConfig";
+import urlConfig from "../Utils/urlConfig";
 import Select from "react-select";
+import queryString from "query-string";
 import {
   GoogleOAuthProvider,
   useGoogleLogin,
@@ -38,21 +39,25 @@ const Signup = () => {
     // }
     //hello
     e.preventDefault();
-    // try {
-    //   //api for new user registration
-    //   const url = `${dynamicURL}/api/users`;
-    //   const { data: res } = await axios.post(url, data);
-    //   navigate("/login");
-    //   console.log(res.message);
-    // } catch (error) {
-    //   if (
-    //     error.response &&
-    //     error.response.status >= 400 &&
-    //     error.response.status <= 500
-    //   ) {
-    //     setError(error.response.data.message);
-    //   }
-    // }
+    try {
+      console.log(urlConfig.dynamicURL);
+      //api for new user registration
+      const url = `${urlConfig.dynamicURL}/employer?${queryString.stringify(
+        data
+      )}`;
+      console.log(url);
+      const { data: res } = await axios.post(url, data);
+      navigate("/login");
+      console.log(res.message);
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      }
+    }
   };
 
   return (
@@ -163,7 +168,6 @@ const Signup = () => {
             {error && <div className={styles.error_msg}>{error}</div>}
             <div className={styles.googleLogin}>
               <button
-                type="submit"
                 className={styles.green_btn}
                 onClick={(handleClick) => {
                   console.log("Data :", data);
