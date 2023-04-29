@@ -102,7 +102,7 @@ const Signup = () => {
           </h2>
           <Link to="/login">
             <button type="button" className={styles.white_btn}>
-              Sing in
+              Sign in
             </button>
           </Link>
         </div>
@@ -216,7 +216,7 @@ const Signup = () => {
                   console.log("Data :", data);
                 }}
               >
-                Sing Up
+                Sign Up
               </button>
               <p>or</p>
 
