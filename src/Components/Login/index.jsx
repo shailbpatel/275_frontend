@@ -26,8 +26,8 @@ const Login = () => {
       const url = `${dynamicURL}/api/auth`;
       const { data: res } = await axios.post(url, data);
       localStorage.setItem("user", JSON.stringify(res));
-      //   console.log("User details :", JSON.stringify(res));
-      //   const userDetail = localStorage.getItem("user");
+      console.log("User details :", JSON.stringify(res));
+      const userDetail = localStorage.getItem("user");
       var path = "/";
       if (res.role === "User") {
         path += "user";

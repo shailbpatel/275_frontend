@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
@@ -9,6 +9,7 @@ import {
   GoogleOAuthProvider,
   useGoogleLogin,
   GoogleLogin,
+  googleLogout,
 } from "@react-oauth/google";
 import { gapi } from "gapi-script";
 import jwt_decode from "jwt-decode";
@@ -24,6 +25,7 @@ const Signup = () => {
     state: "",
     zip: "",
     capacity: "",
+    description: "",
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -32,12 +34,43 @@ const Signup = () => {
     setData({ ...data, [input.name]: input.value });
   };
 
+  const [user, setUser] = useState([]);
+
+  const [profile, setProfile] = useState([]);
+
+  //   const login = useGoogleLogin({
+  //     onSuccess: (codeResponse) => setUser(codeResponse),
+  //     onError: (error) => console.log("Login Failed:", error),
+  //   });
+
+  //   useEffect(() => {
+  //     if (user) {
+  //       axios
+  //         .get(
+  //           `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${user.access_token}`,
+  //               Accept: "application/json",
+  //             },
+  //           }
+  //         )
+  //         .then((res) => {
+  //           setProfile(res.data);
+  //         })
+  //         .catch((err) => console.log(err));
+  //     }
+  //   }, [user]);
+
+  // log out function to log the user out of google and set the profile array to null
+  //   const logOut = () => {
+  //     googleLogout();
+  //     setProfile(null);
+  //   };
+
   const handleSubmit = async (e) => {
     console.log("Valid submit");
-    // if (Validity(data)) {
-    //   //submit
-    // }
-    //hello
+
     e.preventDefault();
     try {
       console.log(urlConfig.dynamicURL);
@@ -73,9 +106,10 @@ const Signup = () => {
             </button>
           </Link>
         </div>
+
         <div className={styles.right}>
           <form className={styles.form_container} onSubmit={handleSubmit}>
-            <h1 className="heading">Create an Account</h1>
+            <h1>Create an Account</h1>
             <input
               type="text"
               placeholder="Name"
@@ -128,6 +162,15 @@ const Signup = () => {
                   defaultValue="3"
                   onChange={handleChange}
                 />
+
+                <textarea
+                  type="text"
+                  name="description"
+                  placeholder="Description 
+                  e.g., Best employer"
+                  className={styles.input}
+                  onChange={handleChange}
+                />
               </>
             ) : (
               <p></p>
@@ -176,12 +219,17 @@ const Signup = () => {
                 Sing Up
               </button>
               <p>or</p>
+
               <GoogleLogin
                 clientId="1043703980146-807tc000l9hlh34efgp0qhued09qjk10.apps.googleusercontent.com"
                 onSuccess={(codeResponse) => {
-                  var token = codeResponse;
-                  // var decoded = jwt_decode(token);
-                  console.log(token);
+                  var token = codeResponse.credential;
+                  var decoded = jwt_decode(token);
+                  data.name = decoded.name;
+                  data.email = decoded.email;
+                  data.password = decoded.password;
+                  setData(data);
+                  console.log("Data: " + JSON.stringify(data));
                 }}
                 onError={() => {
                   console.log("Login Failed");
