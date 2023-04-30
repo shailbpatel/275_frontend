@@ -82,7 +82,7 @@ const Login = () => {
               onSuccess={(credentialResponse) => {
                 var token = credentialResponse.credential;
                 var decoded = jwt_decode(token);
-                console.log(decoded);
+                console.log("Login Data: " + JSON.stringify(decoded));
               }}
               onError={() => {
                 console.log("Login Failed");

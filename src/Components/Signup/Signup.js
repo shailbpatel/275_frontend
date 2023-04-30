@@ -11,7 +11,6 @@ import {
   GoogleLogin,
   googleLogout,
 } from "@react-oauth/google";
-import { gapi } from "gapi-script";
 import jwt_decode from "jwt-decode";
 
 const Signup = () => {
@@ -19,13 +18,14 @@ const Signup = () => {
     name: "",
     email: "",
     password: "",
-    role: "Employee",
+    role: "",
     street: "",
     city: "",
     state: "",
     zip: "",
     capacity: "",
     description: "",
+    
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -146,6 +146,7 @@ const Signup = () => {
               onChange={handleChange}
               className={styles.dropdown}
             >
+              <option selected="selected" hidden="hidden">Select a role</option>
               <option label="Employee">Employee</option>
               <option label="Employer">Employer</option>
             </select>
@@ -162,18 +163,17 @@ const Signup = () => {
                   defaultValue="3"
                   onChange={handleChange}
                 />
-
-                <textarea
+              </>
+            ) : (
+              <>
+                <div className={styles.role}>Employer Name: </div>
+                <input
                   type="text"
-                  name="description"
-                  placeholder="Description 
-                  e.g., Best employer"
+                  name="employer"
                   className={styles.input}
                   onChange={handleChange}
                 />
               </>
-            ) : (
-              <p></p>
             )}
 
             <input
@@ -229,7 +229,7 @@ const Signup = () => {
                   data.email = decoded.email;
                   data.password = decoded.password;
                   setData(data);
-                  console.log("Data: " + JSON.stringify(data));
+                  console.log("Signup Data: " + JSON.stringify(data));
                 }}
                 onError={() => {
                   console.log("Login Failed");

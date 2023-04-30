@@ -10,12 +10,12 @@ const LandingPage = () => {
         for employers and employees alike
       </div> */}
       <div>
-        <p class="slide-up">
-          <span class="green">Hello there</span>,
+        <p className="slide-up">
+          <span className="green">Hello there</span>,
         </p>
       </div>
       <div>
-        <p class="slide-up">
+        <p className="slide-up">
           book your workspace with ease - <i>WIORS</i> has got you covered
         </p>
       </div>
