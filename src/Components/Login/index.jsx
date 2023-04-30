@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import dynamicURL from "../Utils/urlConfig";
+import {dynamicURL} from "../Utils/urlConfig";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { gapi } from "gapi-script";
 import jwt_decode from "jwt-decode";
