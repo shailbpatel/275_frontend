@@ -17,8 +17,8 @@ export default function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/">
-            <button className="nav_btn">About </button>
+          <Link to="/bulkreservation">
+            <button className="nav_btn">Bulk Test </button>
           </Link>
         </li>
         <li>

@@ -1,0 +1,42 @@
+.displayData {
+  height: 500px;
+  overflow: auto;
+}
+
+.btn {
+  border: none;
+  outline: none;
+  padding: 10px 0;
+  border-radius: 5px;
+  width: 77px;
+  font-size: 12px;
+  cursor: pointer;
+  color: white;
+}
+
+.remove_btn {
+  background-color: rgb(224, 123, 123);
+}
+
+[type="file"] {
+  /* Style the color of the message that says 'No file chosen' */
+  color: #878787;
+}
+[type="file"]::-webkit-file-upload-button {
+  background: #7f9efa;
+  border: 2px solid #7f93fa;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  outline: none;
+  padding: 10px 25px;
+  text-transform: uppercase;
+  transition: all 1s ease;
+}
+
+[type="file"]::-webkit-file-upload-button:hover {
+  background: #fff;
+  border: 2px solid #535353;
+  color: #000;
+}

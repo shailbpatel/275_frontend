@@ -4,6 +4,7 @@ import Navbar from "./Components/Header/Navbar";
 import Login from "./Components/Login/index";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import LandingPage from "./Components/LandingPage/LandingPage";
+import BulkReservation from "./Components/BulkReservation/BulkReservation";
 
 function App() {
   return (
@@ -15,6 +16,11 @@ function App() {
             <Route path="/" exact element={<LandingPage />} />
             <Route path="/signup" exact element={<Signup />} />
             <Route path="/login" exact element={<Login />} />
+            <Route
+              path="/bulkreservation"
+              exact
+              element={<BulkReservation />}
+            />
           </Routes>
         </GoogleOAuthProvider>
       </BrowserRouter>
