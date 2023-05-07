@@ -19,24 +19,22 @@
   font-weight: bold;
   font-size: 14px;
   cursor: pointer;
+  background-color: rgb(122, 141, 237);
+  color: white;
 
   align-self: flex-start;
 }
 
 .reserve_btn_color {
-  background-color: rgb(92, 238, 211);
   width: 82px;
   border-radius: 15px;
   margin-left: 10px;
   height: fit-content;
   padding: 10px;
-  color: black;
 }
 
 .compliance_btn_color {
-  background-color: rgb(122, 141, 237);
   width: 110px;
-  color: white;
   border-radius: 20px;
 }
 
@@ -49,7 +47,7 @@
 
 .reserve_btn:hover {
   border: 2px solid transparent;
-  color: white;
   transform: scale(1.05);
   will-change: transform;
+  color: black;
 }
