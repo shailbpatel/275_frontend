@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { DatePicker, Space } from "antd";
 import moment from "moment";
+import axios from "axios";
+import dynamicURL from "../Utils/urlConfig";
 
 import "./styles.css";
 
@@ -16,13 +18,13 @@ const SeatReservation = () => {
     if (values != null) {
       setDates(
         values.map((item) => {
-          return moment(item.$d).format("YYYY-DD-MM");
+          return moment(item.$d).format("MM-DD-YYYY");
         })
       );
     }
   };
 
-  const onCalendarChange = (date, dateString) => {
+  const onCalendarChange = (date) => {
     console.log(date);
     if (date != null && date[0] != null) {
       setstartDate(date[0]);
@@ -48,6 +50,20 @@ const SeatReservation = () => {
     return isPast || isWeekend || isBeforeNextWeek || isOutsideCurrentWeek;
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const url = `${dynamicURL}/employee/employeeid/seatreservation`;
+    const datesToSend = {
+      startDate: dates[0],
+      endDate: dates[1],
+      employeeID: "test123",
+    };
+
+    await axios.post(url, datesToSend).then((response) => {
+      console.log(response);
+    });
+  };
+
   return (
     <>
       <h3 className="title">Seat Reservation</h3>
@@ -55,16 +71,25 @@ const SeatReservation = () => {
       <div className="seat_reservation">
         <div>
           <Link to="/employee/employeeid/compliancecheck">
-            <button className="compliance_btn">Compliance Check</button>
+            <button className="compliance_btn compliance_btn_color ">
+              Compliance Check
+            </button>
           </Link>
         </div>
+
         <div className="range_picker">
-          <RangePicker
-            onCalendarChange={onCalendarChange}
-            onChange={getDates}
-            disabledDate={disabledDate}
-            format="MM-DD-YYYY"
-          />
+          <h4>Select your start and end date to reserve a seat</h4>
+          <form onSubmit={handleSubmit}>
+            <RangePicker
+              onCalendarChange={onCalendarChange}
+              onChange={getDates}
+              disabledDate={disabledDate}
+              format="MM-DD-YYYY"
+            />
+            <button className="reserve_btn reserve_btn_color" type="submit">
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </>

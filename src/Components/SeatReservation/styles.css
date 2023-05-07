@@ -11,23 +11,45 @@
   margin-top: 2%;
 }
 
-.compliance_btn {
+.compliance_btn,
+.reserve_btn {
   border: none;
   outline: none;
   padding: 12px 0;
-  background-color: rgb(122, 141, 237);
-  border-radius: 20px;
-  width: 110px;
   font-weight: bold;
   font-size: 14px;
-  cursor: inherit;
-  color: white;
+  cursor: pointer;
+
   align-self: flex-start;
+}
+
+.reserve_btn_color {
+  background-color: rgb(92, 238, 211);
+  width: 82px;
+  border-radius: 15px;
+  margin-left: 10px;
+  height: fit-content;
+  padding: 10px;
+  color: black;
+}
+
+.compliance_btn_color {
+  background-color: rgb(122, 141, 237);
+  width: 110px;
+  color: white;
+  border-radius: 20px;
 }
 
 .compliance_btn:hover {
   border: 2px solid transparent;
   color: black;
+  transform: scale(1.05);
+  will-change: transform;
+}
+
+.reserve_btn:hover {
+  border: 2px solid transparent;
+  color: white;
   transform: scale(1.05);
   will-change: transform;
 }
