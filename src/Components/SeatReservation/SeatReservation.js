@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { DatePicker, Space } from "antd";
 import moment from "moment";
 
@@ -50,7 +51,13 @@ const SeatReservation = () => {
   return (
     <>
       <div className="seat_reservation">
-        <div>Seat Reservation</div>
+        <h3 className="title">Seat Reservation</h3>
+
+        <div>
+          <Link to="/employee/employeeid/compliancecheck">
+            <button className="compliance_btn">Compliance Check</button>
+          </Link>
+        </div>
         <RangePicker
           onCalendarChange={onCalendarChange}
           onChange={getDates}

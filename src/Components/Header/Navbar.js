@@ -17,7 +17,7 @@ export default function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/bulkreservation">
+          <Link to="/employer/employerid/bulkreservation">
             <button className="nav_btn">Bulk Test </button>
           </Link>
         </li>
@@ -27,7 +27,7 @@ export default function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/seatreservation">
+          <Link to="/employee/employeeid/seatreservation">
             <button className="nav_btn">Seat Test </button>
           </Link>
         </li>

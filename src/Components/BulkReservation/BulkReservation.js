@@ -27,6 +27,10 @@ export default function BulkReservation() {
     });
   };
 
+  if (selectedFile && parsedData[0] != undefined) {
+    console.log(parsedData[0].Country);
+  }
+
   const handleRemoveFile = () => {
     setSelectedFile(null);
     setParsedData([]);
@@ -42,7 +46,7 @@ export default function BulkReservation() {
     <div>
       {/* File Uploader */}
       <div>
-        <h2>Bulk Reservation by uploading CSV file</h2>
+        <h3 className="title">Bulk Reservation by uploading CSV file</h3>
       </div>
       <div className="btn choose_btn">
         <input

@@ -3,6 +3,10 @@
   overflow: auto;
 }
 
+.title {
+  text-align: center;
+}
+
 .btn {
   border: none;
   outline: none;
