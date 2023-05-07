@@ -50,20 +50,22 @@ const SeatReservation = () => {
 
   return (
     <>
-      <div className="seat_reservation">
-        <h3 className="title">Seat Reservation</h3>
+      <h3 className="title">Seat Reservation</h3>
 
+      <div className="seat_reservation">
         <div>
           <Link to="/employee/employeeid/compliancecheck">
             <button className="compliance_btn">Compliance Check</button>
           </Link>
         </div>
-        <RangePicker
-          onCalendarChange={onCalendarChange}
-          onChange={getDates}
-          disabledDate={disabledDate}
-          format="MM-DD-YYYY"
-        />
+        <div className="range_picker">
+          <RangePicker
+            onCalendarChange={onCalendarChange}
+            onChange={getDates}
+            disabledDate={disabledDate}
+            format="MM-DD-YYYY"
+          />
+        </div>
       </div>
     </>
   );
