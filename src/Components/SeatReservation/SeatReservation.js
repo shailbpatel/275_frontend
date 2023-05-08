@@ -21,6 +21,9 @@ const SeatReservation = () => {
           return moment(item.$d).format("MM-DD-YYYY");
         })
       );
+    } else {
+      setDates([]);
+      setstartDate(null);
     }
   };
 
