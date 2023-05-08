@@ -26,6 +26,11 @@ export default function Navbar() {
             <button className="nav_btn">Login </button>
           </Link>
         </li>
+        <li>
+          <Link to="/seatreservation">
+            <button className="nav_btn">Seat Test </button>
+          </Link>
+        </li>
       </ul>
     </nav>
   );

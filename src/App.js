@@ -5,6 +5,7 @@ import Login from "./Components/Login/index";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import LandingPage from "./Components/LandingPage/LandingPage";
 import BulkReservation from "./Components/BulkReservation/BulkReservation";
+import SeatReservation from "./Components/SeatReservation/SeatReservation";
 
 function App() {
   return (
@@ -20,6 +21,11 @@ function App() {
               path="/bulkreservation"
               exact
               element={<BulkReservation />}
+            />
+            <Route
+              path="/seatreservation"
+              exact
+              element={<SeatReservation />}
             />
           </Routes>
         </GoogleOAuthProvider>
