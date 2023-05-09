@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { DatePicker, Space } from "antd";
+import { DatePicker, Space, Button } from "antd";
 import moment from "moment";
 import axios from "axios";
 import dynamicURL from "../Utils/urlConfig";
@@ -11,8 +11,7 @@ const { RangePicker } = DatePicker;
 const SeatReservation = () => {
   const [dates, setDates] = useState([]);
   const [startDate, setstartDate] = useState(null);
-
-  console.log(dates);
+  const rangePickerRef = useRef(null);
 
   const getDates = (values) => {
     if (values != null) {
@@ -28,7 +27,6 @@ const SeatReservation = () => {
   };
 
   const onCalendarChange = (date) => {
-    console.log(date);
     if (date != null && date[0] != null) {
       setstartDate(date[0]);
     }
@@ -36,15 +34,21 @@ const SeatReservation = () => {
 
   const disabledDate = (current) => {
     if (!current) return true;
+
     // Disable past dates
     const isPast = current < moment().startOf("day");
+
     // Disable weekends
     const isWeekend = current.day() === 6 || current.day() === 0;
+
     // Disable dates before the beginning of next week
     const startOfNext10Week = moment().add(10, "weeks").startOf("week");
+
     const isBeforeNextWeek = current > startOfNext10Week;
-    // // Disable dates outside of current week
+
+    //Disable dates outside of current week
     let isOutsideCurrentWeek = false;
+
     if (startDate != null) {
       const startOfWeek = startDate.add(1, "weeks").startOf("week");
       isOutsideCurrentWeek = current >= startOfWeek;
@@ -65,6 +69,9 @@ const SeatReservation = () => {
     await axios.post(url, datesToSend).then((response) => {
       console.log(response);
     });
+
+    setDates([]);
+    setstartDate(null);
   };
 
   return (
@@ -74,9 +81,7 @@ const SeatReservation = () => {
       <div className="seat_reservation">
         <div>
           <Link to="/employee/employeeid/compliancecheck">
-            <button className="compliance_btn compliance_btn_color ">
-              Compliance Check
-            </button>
+            <Button type="primary">Compliance Check</Button>
           </Link>
         </div>
 
@@ -88,10 +93,11 @@ const SeatReservation = () => {
               onChange={getDates}
               disabledDate={disabledDate}
               format="MM-DD-YYYY"
+              ref={rangePickerRef}
             />
-            <button className="reserve_btn reserve_btn_color" type="submit">
+            <Button type="primary" htmlType="submit" className="submit_dates">
               Submit
-            </button>
+            </Button>
           </form>
         </div>
       </div>

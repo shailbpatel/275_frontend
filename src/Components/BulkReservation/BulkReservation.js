@@ -3,7 +3,6 @@ import Papa from "papaparse";
 import "./styles.css";
 import { Upload, Button, message, Table } from "antd";
 import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
-import { height } from "@mui/system";
 
 export default function BulkReservation() {
   const [parsedData, setParsedData] = useState([]);
