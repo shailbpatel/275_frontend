@@ -41,11 +41,16 @@ export default function BulkReservation() {
 
   const props = {
     beforeUpload: (file) => {
+      if (file.type !== "text/csv") {
+        message.error("You can only upload CSV files");
+        return false;
+      }
       setSelectedFile(file);
       handleUpload(file);
       return false;
     },
     showUploadList: false,
+    accept: ".csv",
   };
 
   return (
