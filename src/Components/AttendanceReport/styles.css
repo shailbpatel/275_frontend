@@ -1,0 +1,56 @@
+.title {
+  text-align: center;
+}
+
+.attendace_report {
+  width: fit-content;
+}
+
+.attendance_report_tbl {
+  width: 70%;
+  position: absolute;
+  height: 90vh;
+  overflow: auto;
+  margin-left: 15%;
+}
+
+.attendance_report_tbl .ant-table-content table {
+  margin: 1.5%;
+}
+
+.attendance_report_tbl .ant-table-thead > tr > th {
+  background-color: #4c35de;
+  color: white;
+  font-weight: 800;
+}
+
+/* Animation for table headers */
+.attendance_report_tbl .ant-table-thead > tr > th {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+/* Animation for table rows */
+.attendance_report_tbl .ant-table-tbody > tr {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+/* Keyframes for the animation */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ant-table-thead > tr > th > td {
+  background-color: blue;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.my-card .ant-card-head-title {
+  font-weight: bold;
+}

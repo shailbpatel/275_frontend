@@ -7,6 +7,7 @@ import LandingPage from "./Components/LandingPage/LandingPage";
 import BulkReservation from "./Components/BulkReservation/BulkReservation";
 import SeatReservation from "./Components/SeatReservation/SeatReservation";
 import ComplianceCheck from "./Components/ComplianceCheck/ComplianceCheck";
+import AttendanceReport from "./Components/AttendanceReport/AttendanceReport";
 
 function App() {
   return (
@@ -32,6 +33,11 @@ function App() {
               path="/employee/employeeid/compliancecheck"
               exact
               element={<ComplianceCheck />}
+            />
+            <Route
+              path="/employee/employeeid/attendacereport"
+              exact
+              element={<AttendanceReport />}
             />
           </Routes>
         </GoogleOAuthProvider>

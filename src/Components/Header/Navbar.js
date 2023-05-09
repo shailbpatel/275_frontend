@@ -31,6 +31,11 @@ export default function Navbar() {
             <button className="nav_btn">Seat Test </button>
           </Link>
         </li>
+        <li>
+          <Link to="/employee/employeeid/attendacereport">
+            <button className="nav_btn">Report Test </button>
+          </Link>
+        </li>
       </ul>
     </nav>
   );
