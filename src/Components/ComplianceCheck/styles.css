@@ -1,0 +1,57 @@
+.compliance_tbl .ant-table-content table {
+  margin: 1.5%;
+}
+
+.compliance_tbl {
+  height: 90vh;
+  overflow: auto;
+}
+
+.title {
+  text-align: center;
+}
+.compliance_tbl .ant-table-thead > tr > th {
+  background-color: #4c35de;
+  color: white;
+  font-weight: 800;
+}
+
+.compliance_tbl .ant-table-content table {
+  margin: 1.5%;
+}
+
+.compliance_tbl {
+  height: 90vh;
+  overflow: auto;
+}
+
+.title {
+  text-align: center;
+}
+
+/* Animation for table headers */
+.compliance_tbl .ant-table-thead > tr > th {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+/* Animation for table rows */
+.compliance_tbl .ant-table-tbody > tr {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+/* Keyframes for the animation */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ant-table-thead > tr > th > td {
+  background-color: blue;
+  animation: fadeIn 1.5s ease-in-out;
+}

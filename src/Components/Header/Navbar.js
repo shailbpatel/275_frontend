@@ -17,13 +17,23 @@ export default function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/">
-            <button className="nav_btn">About </button>
+          <Link to="/employer/employerid/bulkreservation">
+            <button className="nav_btn">Bulk Test </button>
           </Link>
         </li>
         <li>
           <Link to="/login">
             <button className="nav_btn">Login </button>
+          </Link>
+        </li>
+        <li>
+          <Link to="/employee/employeeid/seatreservation">
+            <button className="nav_btn">Seat Test </button>
+          </Link>
+        </li>
+        <li>
+          <Link to="/employee/employeeid/attendacereport">
+            <button className="nav_btn">Report Test </button>
           </Link>
         </li>
       </ul>
