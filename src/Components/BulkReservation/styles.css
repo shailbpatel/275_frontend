@@ -1,6 +1,7 @@
 .displayData {
   height: 500px;
   overflow: auto;
+  margin: 1%;
 }
 
 .title {
@@ -19,7 +20,8 @@
 }
 
 .remove_btn {
-  background-color: rgb(224, 123, 123);
+  margin-left: 10px;
+  vertical-align: middle;
 }
 
 [type="file"] {

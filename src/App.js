@@ -1,7 +1,8 @@
+import React from "react";
 import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
 import Signup from "./Components/Signup/Signup";
 import Navbar from "./Components/Header/Navbar";
-import Login from "./Components/Login/index";
+import Login from "./Components/Login/Login";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import LandingPage from "./Components/LandingPage/LandingPage";
 import BulkReservation from "./Components/BulkReservation/BulkReservation";

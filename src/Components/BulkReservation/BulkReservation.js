@@ -1,92 +1,101 @@
 import React, { useState } from "react";
 import Papa from "papaparse";
 import "./styles.css";
+import { Upload, Button, message, Table } from "antd";
+import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
+import { height } from "@mui/system";
 
 export default function BulkReservation() {
   const [parsedData, setParsedData] = useState([]);
-  const [tableRows, setTableRows] = useState([]);
-  const [values, setValues] = useState([]);
+  const [tableColumns, setTableColumns] = useState([]);
+  const [tableData, setTableData] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
-    Papa.parse(event.target.files[0], {
+  const handleUpload = (file) => {
+    Papa.parse(file, {
       header: true,
       skipEmptyLines: true,
       complete: function (results) {
-        const rowsArray = [];
-        const valuesArray = [];
-        results.data.map((d) => {
-          rowsArray.push(Object.keys(d));
-          valuesArray.push(Object.values(d));
-        });
+        const tableColumns = Object.keys(results.data[0]).map((key) => ({
+          title: key,
+          dataIndex: key,
+          key: key,
+        }));
+        const tableData = results.data.map((row, index) => ({
+          ...row,
+          key: index,
+        }));
         setParsedData(results.data);
-        setTableRows(rowsArray[0]);
-        setValues(valuesArray);
+        setTableColumns(tableColumns);
+        setTableData(tableData);
       },
     });
   };
 
-  if (selectedFile && parsedData[0] != undefined) {
-    console.log(parsedData[0].Country);
-  }
-
   const handleRemoveFile = () => {
     setSelectedFile(null);
     setParsedData([]);
-    setTableRows([]);
-    setValues([]);
+    setTableColumns([]);
+    setTableData([]);
+  };
 
-    // Reset file input element
-    const fileInput = document.querySelector('input[type="file"]');
-    fileInput.value = "";
+  const props = {
+    beforeUpload: (file) => {
+      setSelectedFile(file);
+      handleUpload(file);
+      return false;
+    },
+    showUploadList: false,
   };
 
   return (
     <div>
       {/* File Uploader */}
       <div>
-        <h3 className="title">Bulk Reservation by uploading CSV file</h3>
+        <h3 style={{ textAlign: "center" }}>
+          Bulk Reservation by uploading CSV file
+        </h3>
       </div>
-      <div className="btn choose_btn">
-        <input
-          type="file"
-          name="file"
-          onChange={changeHandler}
-          accept=".csv"
-          style={{ display: "block", margin: "10px auto" }}
-        />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: 20,
+        }}
+      >
+        {selectedFile ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "fit-content",
+            }}
+          >
+            <p>{selectedFile.name}</p>
+            <Button
+              className="remove-btn"
+              style={{ marginLeft: 10, color: "red" }}
+              icon={<DeleteOutlined />}
+              onClick={handleRemoveFile}
+            >
+              Remove File
+            </Button>
+          </div>
+        ) : (
+          <Upload {...props}>
+            <Button icon={<UploadOutlined />}>Choose File</Button>
+          </Upload>
+        )}
       </div>
-
-      {selectedFile && (
-        <button className="btn remove_btn" onClick={handleRemoveFile}>
-          Remove File
-        </button>
-      )}
 
       {/* Table */}
-      {parsedData.length > 0 && (
-        <div className="displayData">
-          <table>
-            <thead>
-              <tr>
-                {tableRows.map((rows, index) => {
-                  return <th key={index}>{rows}</th>;
-                })}
-              </tr>
-            </thead>
-            <tbody>
-              {values.map((value, index) => {
-                return (
-                  <tr key={index}>
-                    {value.map((val, i) => {
-                      return <td key={i}>{val}</td>;
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+      {tableColumns.length > 0 && (
+        <div style={{ marginTop: 20 }}>
+          <Table
+            className="displayData"
+            dataSource={tableData}
+            columns={tableColumns}
+          />
         </div>
       )}
     </div>

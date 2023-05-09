@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,7 +26,6 @@ const Signup = () => {
     zip: "",
     capacity: "",
     description: "",
-    
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -146,7 +146,9 @@ const Signup = () => {
               onChange={handleChange}
               className={styles.dropdown}
             >
-              <option selected="selected" hidden="hidden">Select a role</option>
+              <option selected="selected" hidden="hidden">
+                Select a role
+              </option>
               <option label="Employee">Employee</option>
               <option label="Employer">Employer</option>
             </select>
