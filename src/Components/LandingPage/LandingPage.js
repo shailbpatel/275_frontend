@@ -5,10 +5,6 @@ import "./styles.css";
 const LandingPage = () => {
   return (
     <div className="main">
-      {/* <div className="">
-        Simplify your office reservation needs with WIORS - the perfect solution
-        for employers and employees alike
-      </div> */}
       <div>
         <p className="slide-up">
           <span className="green">Hello there</span>,
