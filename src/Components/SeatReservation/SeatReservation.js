@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom
+import { Link } from "react-router-dom";
 import { DatePicker, Button, Space } from "antd";
 
 import moment from "moment";
