@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom
+import { Link } from "react-router-dom";
 import { DatePicker, Button, Space } from "antd";
 
 import moment from "moment";
 import axios from "axios";
-import dynamicURL from "../Utils/urlConfig";
+import { dynamicURL } from "../Utils/urlConfig";
 
 import "./styles.css";
 
