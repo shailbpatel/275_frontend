@@ -101,8 +101,9 @@ const Signup = () => {
       if(data.role === "Employer") {
         const { is_verified, role, ...post_data } = data;
         const url = `${backendURL}/employer?${queryString.stringify(post_data)}`;
-        const { data: res } = await axios.post(url, data);
-        console.log(res.status); 
+        axios.post(url, data).then(() => {
+          populateAllEmployers();
+        });
       }
     } catch (error) {
       if (
