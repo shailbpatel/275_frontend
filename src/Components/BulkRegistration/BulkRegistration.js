@@ -122,7 +122,7 @@ export default function BulkReservation() {
 
       {/* Table */}
       {tableColumns.length > 0 && (
-        <div style={{ marginTop: 20 }}>
+        <div className="table-container" style={{ marginTop: 20 }}>
           <Table
             className="displayData"
             dataSource={tableData}
