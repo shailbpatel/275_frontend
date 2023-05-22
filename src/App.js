@@ -5,7 +5,7 @@ import Navbar from "./Components/Header/Navbar";
 import Login from "./Components/Login/Login";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import LandingPage from "./Components/LandingPage/LandingPage";
-import BulkReservation from "./Components/BulkReservation/BulkReservation";
+import BulkReservation from "./Components/BulkRegistration/BulkRegistration";
 import SeatReservation from "./Components/SeatReservation/SeatReservation";
 import ComplianceCheck from "./Components/ComplianceCheck/ComplianceCheck";
 import AttendanceReport from "./Components/AttendanceReport/AttendanceReport";
