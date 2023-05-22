@@ -3,14 +3,34 @@ import Papa from "papaparse";
 import "./styles.css";
 import { Upload, Button, message, Table } from "antd";
 import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
+import axios from "axios";
+import { dynamicURL } from "../Utils/urlConfig";
 
-export default function BulkReservation() {
+export default function BulkRegistration() {
   const [parsedData, setParsedData] = useState([]);
   const [tableColumns, setTableColumns] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleUpload = (file) => {
+  const handleUpload = async (file) => {
+    const formData = new FormData();
+    formData.append("csvFile", file, file.name);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    await axios
+      .post(`${dynamicURL}/employee/bulk/reservation`, formData, config)
+      .then(function (response) {
+        // Handle success
+        console.log(response);
+      })
+      .catch(function (error) {
+        // Handle error
+        console.log(error);
+      });
+
     Papa.parse(file, {
       header: true,
       skipEmptyLines: true,
@@ -27,6 +47,7 @@ export default function BulkReservation() {
         setParsedData(results.data);
         setTableColumns(tableColumns);
         setTableData(tableData);
+        console.log(results);
       },
     });
   };
@@ -57,7 +78,8 @@ export default function BulkReservation() {
       {/* File Uploader */}
       <div>
         <h3 style={{ textAlign: "center" }}>
-          Bulk Reservation by uploading CSV file
+          Bulk <span style={{ color: "green" }}>Reservation </span> by uploading
+          CSV file
         </h3>
       </div>
       <div
@@ -67,29 +89,31 @@ export default function BulkReservation() {
           marginTop: 20,
         }}
       >
-        {selectedFile ? (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "fit-content",
-            }}
-          >
-            <p>{selectedFile.name}</p>
-            <Button
-              className="remove-btn"
-              style={{ marginLeft: 10, color: "red" }}
-              icon={<DeleteOutlined />}
-              onClick={handleRemoveFile}
+        <form onSubmit={handleUpload}>
+          {selectedFile ? (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "fit-content",
+              }}
             >
-              Remove File
-            </Button>
-          </div>
-        ) : (
-          <Upload {...props}>
-            <Button icon={<UploadOutlined />}>Choose File</Button>
-          </Upload>
-        )}
+              <p>{selectedFile.name}</p>
+              <Button
+                className="remove-btn"
+                style={{ marginLeft: 10, color: "red" }}
+                icon={<DeleteOutlined />}
+                onClick={handleRemoveFile}
+              >
+                Remove File
+              </Button>
+            </div>
+          ) : (
+            <Upload {...props}>
+              <Button icon={<UploadOutlined />}>Choose File</Button>
+            </Upload>
+          )}
+        </form>
       </div>
 
       {/* Table */}
