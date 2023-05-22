@@ -126,7 +126,19 @@ const ComplianceCheck = () => {
   const App = () => (
     <div className="compliance_tbl">
       <h3 className="title">Compliance Check</h3>
-      <Table columns={columns} dataSource={data} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        footer={() => (
+          <>
+            <p> Note</p>
+            <Tag color="green">G</Tag>
+            {"= GTD, "}
+            <Tag color="blue">S</Tag>
+            {"= Self-reservation "}
+          </>
+        )}
+      />
     </div>
   );
 
