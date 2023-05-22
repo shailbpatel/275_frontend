@@ -13,6 +13,10 @@ const SeatReservation = () => {
   const [dates, setDates] = useState([]);
   const [startDate, setstartDate] = useState(null);
   const rangePickerRef = useRef(null);
+  const [employeeId, setemployeeId] = useState("testEmployee");
+  const [employerId, setemployerId] = useState("testEmployer");
+  const [isPreemptable, setIsPreemptable] = useState(false);
+  const [isGTD, setIsGTDe] = useState(false);
 
   const getDates = (values) => {
     if (values != null) {
@@ -64,7 +68,10 @@ const SeatReservation = () => {
     const datesToSend = {
       startDate: dates[0],
       endDate: dates[1],
-      employeeID: "test123",
+      isPreemptable: isPreemptable,
+      isGTD: isGTD,
+      employeeId: employeeId,
+      employerId: employerId,
     };
 
     await axios.post(url, datesToSend).then((response) => {
