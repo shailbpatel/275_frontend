@@ -21,7 +21,7 @@ export default function BulkRegistration() {
       },
     };
     await axios
-      .post(`${dynamicURL}/employee/bulk/reservation`, formData, config)
+      .post(`${dynamicURL}/bulk/reservation`, formData, config)
       .then(function (response) {
         // Handle success
         console.log(response);

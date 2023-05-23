@@ -4,7 +4,7 @@ import { DatePicker, Button, Space } from "antd";
 
 import moment from "moment";
 import axios from "axios";
-import { dynamicURL } from "../Utils/urlConfig";
+import { backendURL } from "../Utils/urlConfig";
 
 import "./styles.css";
 
@@ -12,8 +12,10 @@ const { RangePicker } = DatePicker;
 const SeatReservation = () => {
   const [dates, setDates] = useState([]);
   const [startDate, setstartDate] = useState(null);
+  const [endDate, setendDate] = useState(null);
+
   const rangePickerRef = useRef(null);
-  const [employeeId, setemployeeId] = useState("testEmployee");
+  const [employeeId, setemployeeId] = useState(1);
   const [employerId, setemployerId] = useState("testEmployer");
   const [isPreemptable, setIsPreemptable] = useState(false);
   const [isGTD, setIsGTDe] = useState(false);
@@ -64,7 +66,9 @@ const SeatReservation = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = `${dynamicURL}/employee/employeeid/seatreservation`;
+    const url = `${backendURL}/seatReservation`;
+    console.log(dates[0]);
+    console.log(employeeId);
     const datesToSend = {
       startDate: dates[0],
       endDate: dates[1],
@@ -74,7 +78,9 @@ const SeatReservation = () => {
       employerId: employerId,
     };
 
-    await axios.post(url, datesToSend).then((response) => {
+    console.log(url);
+
+    axios.post(url, datesToSend).then((response) => {
       console.log(response);
     });
 
