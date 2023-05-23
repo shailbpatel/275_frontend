@@ -24,36 +24,44 @@ export default function Navbar(props) {
                 <button className="nav_btn">Login </button>
               </Link>
             </li>
-          
           </>
         ) : (
           <>
-          {props.userRole == "Employer" ? 
-          <>
-            <li>
-            <Link to="/employer/employerid/bulkreservation">
-              <button className="nav_btn">Bulk Test </button>
+            {props.userRole == "Employer" ? (
+              <>
+                <li>
+                  <Link to="/employer/employerid/bulkreservation">
+                    <button className="nav_btn">Bulk Test </button>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/employer/employerid/mop">
+                    <button className="nav_btn"> MOP </button>
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/employee/employeeid/seatreservation">
+                    <button className="nav_btn">Seat Test </button>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/employee/employeeid/attendacereport">
+                    <button className="nav_btn">Report Test </button>
+                  </Link>
+                </li>
+              </>
+            )}
+
+            <Link>
+              <li>
+                <button className="nav_btn pt-3" onClick={props.logoutCallback}>
+                  Logout{" "}
+                </button>
+              </li>
             </Link>
-            </li>
-          </> : 
-          <>
-            <li>
-              <Link to="/employee/employeeid/seatreservation">
-                <button className="nav_btn">Seat Test </button>
-              </Link>
-            </li>
-            <li>
-              <Link to="/employee/employeeid/attendacereport">
-                <button className="nav_btn">Report Test </button>
-              </Link>
-            </li>
-          </>}
-          
-          <Link>
-            <li>
-                <button className="nav_btn pt-3" onClick={props.logoutCallback}>Logout </button>
-            </li>
-          </Link>
           </>
         )}
       </ul>
