@@ -198,7 +198,6 @@ const Signup = () => {
         ...prevData,
         name: response["profileObj"]["name"],
         id: "",
-        employer_id: "",
         email: response["profileObj"]["email"],
         password: "",
         manager_id: "",

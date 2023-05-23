@@ -16,9 +16,9 @@ function Login({loginCallback}) {
     setData({ ...data, [input.name]: input.value });
   };
 
-  const loginAction = () => {
+  const loginAction = (updatedData = data) => {
     const url = `${backendURL}/login`;
-    axios.post(url, data)
+    axios.post(url, updatedData)
     .then((response) => {
       localStorage.setItem("session_key", response.data["session_key"])
       let userData = {};
@@ -80,7 +80,7 @@ function Login({loginCallback}) {
                         buttonText="Sign in with Google"
                         onSuccess={(response) => {
                           setData({ ...data, email: response["profileObj"]["email"], isGoogle: true });
-                          loginAction();
+                          loginAction({ password: "", email: response["profileObj"]["email"], isGoogle: true });
                         }}
                         onFailure={(response) => {console.log(response)}}
                         cookiePolicy={"single_host_origin"}
