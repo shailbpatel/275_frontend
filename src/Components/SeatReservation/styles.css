@@ -1,0 +1,57 @@
+.seat_reservation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  text-align: center;
+}
+.range_picker {
+  margin-top: 2%;
+}
+
+.submit_dates {
+  margin-left: 2%;
+}
+
+/* .compliance_btn,
+.reserve_btn {
+  border: none;
+  outline: none;
+  padding: 12px 0;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: rgb(122, 141, 237);
+  color: white;
+
+  align-self: flex-start;
+} */
+
+/* .reserve_btn_color {
+  width: 82px;
+  border-radius: 15px;
+  margin-left: 10px;
+  height: fit-content;
+  padding: 10px;
+} */
+
+/* .compliance_btn_color {
+  width: 110px;
+  border-radius: 20px;
+}
+
+.compliance_btn:hover {
+  border: 2px solid transparent;
+  color: black;
+  transform: scale(1.05);
+  will-change: transform;
+}
+
+.reserve_btn:hover {
+  border: 2px solid transparent;
+  transform: scale(1.05);
+  will-change: transform;
+  color: black;
+} */
