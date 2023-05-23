@@ -351,7 +351,7 @@ const Signup = () => {
                     <div className={styles.googleLogin}>
                       <input
                         type="submit"
-                        value="Sign In"
+                        value="Sign Up"
                         onClick={handleSubmit}
                         className={styles.green_btn}
                       />
