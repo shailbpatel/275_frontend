@@ -5,10 +5,9 @@ import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useNavigate } from "react-router-dom";
 import {backendURL} from "../Utils/urlConfig";
-import { GoogleLogin } from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
+import { GoogleLogin } from "react-google-login";
 
-const Login = () => {
+function Login({loginCallback}) {
   const navigate = useNavigate();
   const [data, setData] = useState({ email: "", password: "", isGoogle: false });
   const [error, setError] = useState("");
@@ -17,14 +16,31 @@ const Login = () => {
     setData({ ...data, [input.name]: input.value });
   };
 
+  const loginAction = () => {
+    const url = `${backendURL}/login`;
+    axios.post(url, data)
+    .then((response) => {
+      localStorage.setItem("session_key", response.data["session_key"])
+      let userData = {};
+      userData.name = response.data.user.name;
+      userData.email = response.data.user.email;
+      userData.role = response.data.user.role;
+      userData.isVerified = response.data.user.is_verified;
+      userData.isGoogle = response.data.user.is_google;
+      localStorage.setItem("user", JSON.stringify(userData));
+      loginCallback(userData);
+      navigate("/");
+    })
+    .catch((e) => {
+      console.log(e.response.data);
+      setError(e.response.data);
+    })
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `${backendURL}/login`;
-      axios.post(url, data).then((response) => {
-        console.log("User details :", JSON.stringify(response));
-        // localStorage.setItem("user", JSON.stringify(response));
-      })
+      loginAction();
     } catch (error) {
         setError(error.response.data.message);
       }
@@ -60,15 +76,15 @@ const Login = () => {
             </button>
             <p>or</p>
             <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                var token = credentialResponse.credential;
-                var decoded = jwt_decode(token);
-                console.log("Login Data: " + JSON.stringify(decoded));
-              }}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-            />
+                        clientId="343518867487-hbofr8ntpbnr18mrrja6f1d7aso6rk5u.apps.googleusercontent.com"
+                        buttonText="Sign in with Google"
+                        onSuccess={(response) => {
+                          setData({ ...data, email: response["profileObj"]["email"], isGoogle: true });
+                          loginAction();
+                        }}
+                        onFailure={(response) => {console.log(response)}}
+                        cookiePolicy={"single_host_origin"}
+                      />
           </form>
         </div>
         <div className={styles.right}>
@@ -82,6 +98,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;
