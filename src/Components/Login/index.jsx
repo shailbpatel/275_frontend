@@ -2,18 +2,15 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import {dynamicURL} from "../Utils/urlConfig";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { gapi } from "gapi-script";
+import { useNavigate } from "react-router-dom";
+import {backendURL} from "../Utils/urlConfig";
+import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [data, setData] = useState({ email: "", password: "" });
+  const [data, setData] = useState({ email: "", password: "", isGoogle: false });
   const [error, setError] = useState("");
-
-  //   console.log("DATA :", data);
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
@@ -22,32 +19,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      //API for authenticating the user
-      const url = `${dynamicURL}/api/auth`;
-      const { data: res } = await axios.post(url, data);
-      localStorage.setItem("user", JSON.stringify(res));
-      console.log("User details :", JSON.stringify(res));
-      const userDetail = localStorage.getItem("user");
-      var path = "/";
-      if (res.role === "User") {
-        path += "user";
-      } else if (res.role === "Airline Employee") {
-        path += "employee";
-      } else if (res.role === "Airport Employee") {
-        path += "airportemp";
-      }
-      path += "/arrivals";
-      navigate(path);
+      const url = `${backendURL}/login`;
+      axios.post(url, data).then((response) => {
+        console.log("User details :", JSON.stringify(response));
+        // localStorage.setItem("user", JSON.stringify(response));
+      })
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
         setError(error.response.data.message);
       }
     }
-  };
 
   return (
     <div className={styles.login_container}>
