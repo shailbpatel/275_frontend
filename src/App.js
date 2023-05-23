@@ -1,5 +1,5 @@
 import { useState, React, useEffect } from "react";
-import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Signup from "./Components/Signup/Signup";
 import Navbar from "./Components/Header/Navbar";
 import Login from "./Components/Login/Login";
@@ -42,8 +42,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar isLoggedIn={isLoggedIn} userRole={userData.role} logoutCallback={logoutCallback} />
         <GoogleOAuthProvider clientId="343518867487-hbofr8ntpbnr18mrrja6f1d7aso6rk5u.apps.googleusercontent.com">
+            <Navbar isLoggedIn={isLoggedIn} userRole={userData.role} logoutCallback={logoutCallback} />
           <Routes>
             <Route path="/" exact element={<LandingPage />} />
             <Route path="/signup" exact element={<Signup />} />
@@ -51,7 +51,7 @@ function App() {
             <Route
               path="/employer/employerid/bulkreservation"
               exact
-              element={<BulkReservation />}
+              element={<BulkReservation userData={userData}/>}
             />
             <Route
               path="/employee/employeeid/seatreservation"

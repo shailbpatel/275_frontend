@@ -6,9 +6,8 @@ import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { dynamicURL } from "../Utils/urlConfig";
 import BulkRegistration from "../BulkReservation/BulkReservation";
-import { color } from "@mui/system";
 
-export default function BulkReservation() {
+export default function BulkReservation(props) {
   const [parsedData, setParsedData] = useState([]);
   const [tableColumns, setTableColumns] = useState([]);
   const [tableData, setTableData] = useState([]);
@@ -23,7 +22,7 @@ export default function BulkReservation() {
       },
     };
     try {
-      await axios.post(`${dynamicURL}/employee/upload`, formData, config);
+      await axios.post(`${dynamicURL}/employee/${props.userData.employerId}/upload`, formData, config);
       notification.success({
         message: "Success",
         description: "File uploaded successfully",
@@ -74,7 +73,7 @@ export default function BulkReservation() {
     setTableData([]);
   };
 
-  const props = {
+  const props1 = {
     beforeUpload: (file) => {
       if (file.type !== "text/csv") {
         notification.error({
@@ -95,7 +94,7 @@ export default function BulkReservation() {
     <div className="bulk_upload">
       {/* File Uploader */}
       <div>
-        <BulkRegistration />
+        <BulkRegistration userData={props.userData}/>
         <h3 style={{ textAlign: "center" }}>
           Bulk <span style={{ color: "green" }}>Registration </span>
           by uploading CSV file
@@ -129,7 +128,7 @@ export default function BulkReservation() {
               </Button>
             </div>
           ) : (
-            <Upload {...props}>
+            <Upload {...props1}>
               <Button icon={<UploadOutlined />}>Choose File</Button>
             </Upload>
           )}

@@ -27,6 +27,7 @@ function Login({loginCallback}) {
       userData.role = response.data.user.role;
       userData.isVerified = response.data.user.is_verified;
       userData.isGoogle = response.data.user.is_google;
+      userData.employerId = response.data.user.employerId;
       localStorage.setItem("user", JSON.stringify(userData));
       loginCallback(userData);
       navigate("/");

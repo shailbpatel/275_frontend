@@ -6,7 +6,7 @@ import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { dynamicURL } from "../Utils/urlConfig";
 
-export default function BulkRegistration() {
+export default function BulkRegistration(props) {
   const [parsedData, setParsedData] = useState([]);
   const [tableColumns, setTableColumns] = useState([]);
   const [tableData, setTableData] = useState([]);
@@ -72,7 +72,7 @@ export default function BulkRegistration() {
     setTableData([]);
   };
 
-  const props = {
+  const props1 = {
     beforeUpload: (file) => {
       if (file.type !== "text/csv") {
         notification.error({
@@ -130,7 +130,7 @@ export default function BulkRegistration() {
               </Button>
             </div>
           ) : (
-            <Upload {...props}>
+            <Upload {...props1}>
               <Button icon={<UploadOutlined />}>Choose File</Button>
             </Upload>
           )}
