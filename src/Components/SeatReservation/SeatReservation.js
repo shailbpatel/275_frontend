@@ -66,7 +66,7 @@ const SeatReservation = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = `${backendURL}/seatReservation`;
+    const url = `${backendURL}/seatreservation`;
     console.log(dates[0]);
     console.log(employeeId);
     const datesToSend = {
