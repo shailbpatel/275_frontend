@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Papa from "papaparse";
 import "./styles.css";
-import { Upload, Button, message, Table } from "antd";
+import { Upload, Button, Table, notification } from "antd";
 import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { dynamicURL } from "../Utils/urlConfig";
 import BulkRegistration from "../BulkReservation/BulkReservation";
+import { color } from "@mui/system";
 
 export default function BulkReservation() {
   const [parsedData, setParsedData] = useState([]);
@@ -21,16 +22,29 @@ export default function BulkReservation() {
         "content-type": "multipart/form-data",
       },
     };
-    await axios
-      .post(`${dynamicURL}/employee/upload`, formData, config)
-      .then(function (response) {
-        // Handle success
-        console.log(response);
-      })
-      .catch(function (error) {
-        // Handle error
-        console.log(error);
+    try {
+      await axios.post(`${dynamicURL}/employee/upload`, formData, config);
+      notification.success({
+        message: "Success",
+        description: "File uploaded successfully",
+        style: {
+          backgroundColor: "#f6ffed",
+          borderColor: "#b7eb8f",
+          color: "#389e0d",
+        },
       });
+    } catch (error) {
+      notification.error({
+        message: "Error",
+        description: "Error uploading file",
+        style: {
+          backgroundColor: "#fff1f0",
+          borderColor: "#ffa39e",
+          color: "#cf1322",
+        },
+      });
+      console.log(error);
+    }
 
     Papa.parse(file, {
       header: true,
@@ -63,7 +77,10 @@ export default function BulkReservation() {
   const props = {
     beforeUpload: (file) => {
       if (file.type !== "text/csv") {
-        message.error("You can only upload CSV files");
+        notification.error({
+          message: "Invalid File Type",
+          description: "You can only upload CSV files",
+        });
         return false;
       }
       setSelectedFile(file);
@@ -77,7 +94,6 @@ export default function BulkReservation() {
   return (
     <div className="bulk_upload">
       {/* File Uploader */}
-
       <div>
         <BulkRegistration />
         <h3 style={{ textAlign: "center" }}>

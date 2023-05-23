@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Papa from "papaparse";
 import "./styles.css";
-import { Upload, Button, message, Table } from "antd";
+import { Upload, Button, Table, notification } from "antd";
 import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { dynamicURL } from "../Utils/urlConfig";
@@ -20,16 +20,29 @@ export default function BulkRegistration() {
         "content-type": "multipart/form-data",
       },
     };
-    await axios
-      .post(`${dynamicURL}/bulk/reservation`, formData, config)
-      .then(function (response) {
-        // Handle success
-        console.log(response);
-      })
-      .catch(function (error) {
-        // Handle error
-        console.log(error);
+    try {
+      await axios.post(`${dynamicURL}/bulk/reservation`, formData, config);
+      notification.success({
+        message: "Success",
+        description: "File uploaded successfully",
+        style: {
+          backgroundColor: "#f6ffed",
+          borderColor: "#b7eb8f",
+          color: "#389e0d",
+        },
       });
+    } catch (error) {
+      notification.error({
+        message: "Error",
+        description: "Error uploading file",
+        style: {
+          backgroundColor: "#fff1f0",
+          borderColor: "#ffa39e",
+          color: "#cf1322",
+        },
+      });
+      console.log(error);
+    }
 
     Papa.parse(file, {
       header: true,
@@ -62,7 +75,15 @@ export default function BulkRegistration() {
   const props = {
     beforeUpload: (file) => {
       if (file.type !== "text/csv") {
-        message.error("You can only upload CSV files");
+        notification.error({
+          message: "Invalid File Type",
+          description: "You can only upload CSV files",
+          style: {
+            backgroundColor: "#fff1f0",
+            borderColor: "#ffa39e",
+            color: "#cf1322",
+          },
+        });
         return false;
       }
       setSelectedFile(file);
