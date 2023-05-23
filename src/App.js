@@ -12,21 +12,30 @@ import ComplianceCheck from "./Components/ComplianceCheck/ComplianceCheck";
 import AttendanceReport from "./Components/AttendanceReport/AttendanceReport";
 
 function App() {
-  const [userData, setUserData] = useState({ name: "", email: "", role: "", isVerified: false, isGoogle: false, employerId: "" });
+  const emptyUserData = { name: "", email: "", role: "", isVerified: false, isGoogle: false, employerId: "" };
+  const [userData, setUserData] = useState(emptyUserData);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const userDataCallback = (userData) => {
+  const loginCallback = (userData) => {
     console.log(userData);
+    setUserData(userData);
+    setIsLoggedIn(true);
   };
+
+  const logoutCallback = () => {
+    setIsLoggedIn(false);
+    setUserData(emptyUserData);
+  }
   
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn} logoutCallback={logoutCallback} />
+        <GoogleOAuthProvider clientId="343518867487-hbofr8ntpbnr18mrrja6f1d7aso6rk5u.apps.googleusercontent.com">
           <Routes>
             <Route path="/" exact element={<LandingPage />} />
             <Route path="/signup" exact element={<Signup />} />
-            <Route path="/login" exact element={<Login />} />
+            <Route path="/login" exact element={<Login loginCallback={loginCallback} logoutCallback={logoutCallback} />} />
             <Route
               path="/employer/employerid/bulkreservation"
               exact
@@ -48,6 +57,7 @@ function App() {
               element={<AttendanceReport />}
             />
           </Routes>
+          </GoogleOAuthProvider>
       </BrowserRouter>
     </div>
   );

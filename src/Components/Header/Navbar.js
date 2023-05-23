@@ -3,7 +3,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import "./styles.css";
 
-export default function Navbar() {
+export default function Navbar(props) {
   return (
     <nav className="nav">
       {/* <img src="frontend/src/Components/Utils/Images/logo.png"></img> */}
@@ -16,14 +16,21 @@ export default function Navbar() {
             <button className="nav_btn">Home </button>
           </Link>
         </li>
-        <li>
+
+        {!props.isLoggedIn ? (
+          <>
+            <li>
+              <Link to="/login">
+                <button className="nav_btn">Login </button>
+              </Link>
+            </li>
+          
+          </>
+        ) : (
+          <>
+          <li>
           <Link to="/employer/employerid/bulkreservation">
             <button className="nav_btn">Bulk Test </button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/login">
-            <button className="nav_btn">Login </button>
           </Link>
         </li>
         <li>
@@ -36,6 +43,13 @@ export default function Navbar() {
             <button className="nav_btn">Report Test </button>
           </Link>
         </li>
+          <Link>
+            <li>
+                <button className="nav_btn pt-3" onClick={props.logoutCallback}>Logout </button>
+            </li>
+          </Link>
+          </>
+        )}
       </ul>
     </nav>
   );
