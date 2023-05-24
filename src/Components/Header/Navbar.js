@@ -6,7 +6,6 @@ import "./styles.css";
 export default function Navbar(props) {
   return (
     <nav className="nav">
-      {/* <img src="frontend/src/Components/Utils/Images/logo.png"></img> */}
       <Link to="/" className="site-title">
         Work-In-Office Reservation System
       </Link>
@@ -59,11 +58,10 @@ export default function Navbar(props) {
                 </li>
               </>
             )}
-
-            <Link>
+            <Link to="/">
               <li>
                 <button className="nav_btn pt-3" onClick={props.logoutCallback}>
-                  Logout{" "}
+                  Logout
                 </button>
               </li>
             </Link>
