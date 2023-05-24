@@ -12,10 +12,10 @@ const MOP = (props) => {
 
   const [error, setError] = useState("");
   const data = {
-    employerId: props.employerId,
-    emailId: props.emailId,
+    employerId: props.userData.employerId,
+    emailId: props.userData.emailId,
     newMOP: newMOP,
-    role: props.role,
+    role: props.userData.role,
   };
 
   const handleChange = (e) => {
