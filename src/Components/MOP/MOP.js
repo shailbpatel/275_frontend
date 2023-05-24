@@ -57,7 +57,9 @@ const MOP = (props) => {
     <>
       <div className={styles.title}>
         <Link to="/employer/employerid/mop/changeseatcapacity">
-          Please click here to change seating capacity
+          <h3 style={{ color: "green", textDecoration: "none" }}>
+            Please click here to change seating capacity
+          </h3>
         </Link>
       </div>
       <div className={styles.login_container}>
