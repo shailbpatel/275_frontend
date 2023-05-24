@@ -5,7 +5,6 @@ import { dynamicURL } from "../Utils/urlConfig";
 import styles from "./styles.module.css";
 
 const ChangeSeatingCapacity = (props) => {
-  console.log(props);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [oldCapacity, setoldCapacity] = useState(null);
   const [newCapacity, setnewCapacity] = useState(null);
@@ -21,9 +20,9 @@ const ChangeSeatingCapacity = (props) => {
     e.preventDefault();
 
     const data = {
-      employerId: props.employerId,
-      email: props.email,
-      role: props.role,
+      employerId: props.userData.employerId,
+      email: props.userData.email,
+      role: props.userData.role,
       newCapacity: newCapacity,
     };
 
