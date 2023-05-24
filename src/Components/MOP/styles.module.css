@@ -7,6 +7,14 @@
   justify-content: center;
 }
 
+.title {
+  text-align: center;
+  text-decoration: none;
+  font-size: x-large;
+  font-style: oblique;
+  margin-top: 2%;
+  color: lightgreen;
+}
 .login_form_container {
   width: 700px;
   height: 500px;

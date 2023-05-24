@@ -52,43 +52,50 @@ const MOP = (props) => {
     //   });
   }, []);
   return (
-    <div className={styles.login_container}>
-      <div className={styles.login_form_container}>
-        <div className={styles.left}>
-          {isFormVisible && (
-            <form
-              className={`${styles.form_container} ${styles.fade_in}`}
-              onSubmit={handleSubmit}
-            >
-              <h2>Change your MOP (Minimum Office Presence)</h2>
-              <input
-                type="text"
-                placeholder="Current MOP"
-                name="mop"
-                value={oldMOP}
-                required
-                disabled
-                className={styles.input}
-              />
-              <input
-                type="number"
-                placeholder="New MOP"
-                name="newMOP"
-                onChange={handleChange}
-                min="0"
-                max="5"
-                required
-                className={styles.input}
-              />
-              {error && <div className={styles.error_msg}>{error}</div>}
-              <button type="submit" className={styles.green_btn}>
-                Update MOP
-              </button>
-            </form>
-          )}
+    <>
+      <div className={styles.title}>
+        <Link to="/employer/employerid/mop/changeseatcapacity">
+          Please click here to change seating capacity
+        </Link>
+      </div>
+      <div className={styles.login_container}>
+        <div className={styles.login_form_container}>
+          <div className={styles.left}>
+            {isFormVisible && (
+              <form
+                className={`${styles.form_container} ${styles.fade_in}`}
+                onSubmit={handleSubmit}
+              >
+                <h2>Change your MOP (Minimum Office Presence)</h2>
+                <input
+                  type="text"
+                  placeholder="Current MOP"
+                  name="mop"
+                  value={oldMOP}
+                  required
+                  disabled
+                  className={styles.input}
+                />
+                <input
+                  type="number"
+                  placeholder="New MOP"
+                  name="newMOP"
+                  onChange={handleChange}
+                  min="0"
+                  max="5"
+                  required
+                  className={styles.input}
+                />
+                {error && <div className={styles.error_msg}>{error}</div>}
+                <button type="submit" className={styles.green_btn}>
+                  Update MOP
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
