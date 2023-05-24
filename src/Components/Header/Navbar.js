@@ -52,6 +52,11 @@ export default function Navbar(props) {
                     <button className="nav_btn">Report Test </button>
                   </Link>
                 </li>
+                <li>
+                  <Link to="/employee/employeeid/gtd">
+                    <button className="nav_btn">GTD</button>
+                  </Link>
+                </li>
               </>
             )}
 
