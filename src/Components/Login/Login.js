@@ -33,7 +33,6 @@ function Login({loginCallback}) {
       navigate("/");
     })
     .catch((e) => {
-      console.log(e.response.data);
       setError(e.response.data);
     })
   };
@@ -80,6 +79,7 @@ function Login({loginCallback}) {
                         clientId="343518867487-hbofr8ntpbnr18mrrja6f1d7aso6rk5u.apps.googleusercontent.com"
                         buttonText="Sign in with Google"
                         onSuccess={(response) => {
+                          console.log(response);
                           setData({ ...data, email: response["profileObj"]["email"], isGoogle: true });
                           loginAction({ password: "", email: response["profileObj"]["email"], isGoogle: true });
                         }}
