@@ -3,52 +3,48 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import dynamicURL from "../Utils/urlConfig";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { gapi } from "gapi-script";
-import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+import {backendURL} from "../Utils/urlConfig";
+import { GoogleLogin } from "react-google-login";
 
-const Login = () => {
+function Login({loginCallback}) {
   const navigate = useNavigate();
-  const [data, setData] = useState({ email: "", password: "" });
+  const [data, setData] = useState({ email: "", password: "", isGoogle: false });
   const [error, setError] = useState("");
-
-  //   console.log("DATA :", data);
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
 
+  const loginAction = (updatedData = data) => {
+    const url = `${backendURL}/login`;
+    axios.post(url, updatedData)
+    .then((response) => {
+      localStorage.setItem("session_key", response.data["session_key"])
+      let userData = {};
+      userData.name = response.data.user.name;
+      userData.email = response.data.user.email;
+      userData.role = response.data.user.role;
+      userData.isVerified = response.data.user.is_verified;
+      userData.isGoogle = response.data.user.is_google;
+      userData.employerId = response.data.user.employerId;
+      localStorage.setItem("user", JSON.stringify(userData));
+      loginCallback(userData);
+      navigate("/");
+    })
+    .catch((e) => {
+      setError(e.response.data);
+    })
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      //API for authenticating the user
-      const url = `${dynamicURL}/api/auth`;
-      const { data: res } = await axios.post(url, data);
-      localStorage.setItem("user", JSON.stringify(res));
-      console.log("User details :", JSON.stringify(res));
-      const userDetail = localStorage.getItem("user");
-      var path = "/";
-      if (res.role === "User") {
-        path += "user";
-      } else if (res.role === "Airline Employee") {
-        path += "employee";
-      } else if (res.role === "Airport Employee") {
-        path += "airportemp";
-      }
-      path += "/arrivals";
-      navigate(path);
+      loginAction();
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
         setError(error.response.data.message);
       }
     }
-  };
 
   return (
     <div className={styles.login_container}>
@@ -80,15 +76,16 @@ const Login = () => {
             </button>
             <p>or</p>
             <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                var token = credentialResponse.credential;
-                var decoded = jwt_decode(token);
-                console.log("Login Data: " + JSON.stringify(decoded));
-              }}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-            />
+                        clientId="343518867487-hbofr8ntpbnr18mrrja6f1d7aso6rk5u.apps.googleusercontent.com"
+                        buttonText="Sign in with Google"
+                        onSuccess={(response) => {
+                          console.log(response);
+                          setData({ ...data, email: response["profileObj"]["email"], isGoogle: true });
+                          loginAction({ password: "", email: response["profileObj"]["email"], isGoogle: true });
+                        }}
+                        onFailure={(response) => {console.log(response)}}
+                        cookiePolicy={"single_host_origin"}
+                      />
           </form>
         </div>
         <div className={styles.right}>
@@ -102,6 +99,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;

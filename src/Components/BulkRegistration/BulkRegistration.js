@@ -5,8 +5,9 @@ import { Upload, Button, Table, notification } from "antd";
 import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { dynamicURL } from "../Utils/urlConfig";
+import BulkRegistration from "../BulkReservation/BulkReservation";
 
-export default function BulkRegistration(props) {
+export default function BulkReservation(props) {
   const [parsedData, setParsedData] = useState([]);
   const [tableColumns, setTableColumns] = useState([]);
   const [tableData, setTableData] = useState([]);
@@ -21,7 +22,7 @@ export default function BulkRegistration(props) {
       },
     };
     try {
-      await axios.post(`${dynamicURL}/bulk/reservation`, formData, config);
+      await axios.post(`${dynamicURL}/employee/${props.userData.employerId}/upload`, formData, config);
       notification.success({
         message: "Success",
         description: "File uploaded successfully",
@@ -78,11 +79,6 @@ export default function BulkRegistration(props) {
         notification.error({
           message: "Invalid File Type",
           description: "You can only upload CSV files",
-          style: {
-            backgroundColor: "#fff1f0",
-            borderColor: "#ffa39e",
-            color: "#cf1322",
-          },
         });
         return false;
       }
@@ -95,14 +91,16 @@ export default function BulkRegistration(props) {
   };
 
   return (
-    <div>
+    <div className="bulk_upload">
       {/* File Uploader */}
       <div>
+        <BulkRegistration userData={props.userData}/>
         <h3 style={{ textAlign: "center" }}>
-          Bulk <span style={{ color: "green" }}>Reservation </span> by uploading
-          CSV file
+          Bulk <span style={{ color: "green" }}>Registration </span>
+          by uploading CSV file
         </h3>
       </div>
+
       <div
         style={{
           display: "flex",
@@ -139,7 +137,7 @@ export default function BulkRegistration(props) {
 
       {/* Table */}
       {tableColumns.length > 0 && (
-        <div style={{ marginTop: 20 }}>
+        <div className="table-container" style={{ marginTop: 20 }}>
           <Table
             className="displayData"
             dataSource={tableData}

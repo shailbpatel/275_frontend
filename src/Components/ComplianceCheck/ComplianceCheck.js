@@ -14,31 +14,31 @@ const ComplianceCheck = () => {
       title: "Mon",
       dataIndex: "mon",
       key: "mon",
-      render: (_, { mon }) => moment(mon).format("MM/DD/YYYY"),
+      render: (_, { mon }) => renderDay(mon),
     },
     {
       title: "Tue",
       dataIndex: "tue",
       key: "tue",
-      render: (_, { tue }) => moment(tue).format("MM/DD/YYYY"),
+      render: (_, { tue }) => renderDay(tue),
     },
     {
       title: "Wed",
       dataIndex: "wed",
       key: "wed",
-      render: (_, { wed }) => moment(wed).format("MM/DD/YYYY"),
+      render: (_, { wed }) => renderDay(wed),
     },
     {
       title: "Thu",
       dataIndex: "thu",
       key: "thu",
-      render: (_, { thu }) => moment(thu).format("MM/DD/YYYY"),
+      render: (_, { thu }) => renderDay(thu),
     },
     {
       title: "Fri",
       dataIndex: "fri",
       key: "fri",
-      render: (_, { fri }) => moment(fri).format("MM/DD/YYYY"),
+      render: (_, { fri }) => renderDay(fri),
     },
     {
       title: "GTD",
@@ -74,6 +74,9 @@ const ComplianceCheck = () => {
     },
   ];
 
+  //dates array received from the backend
+  const markedDates = ["2023-05-22", "2023-05-25", "2023-06-01", "2023-07-03"];
+
   const data = [];
   let startOfWeek = moment().startOf("isoWeek");
 
@@ -107,10 +110,37 @@ const ComplianceCheck = () => {
     startOfWeek.add(1, "week");
   }
 
+  const renderDay = (date) => {
+    const isWednesday = moment(date).day() === 3;
+    const isMarked = markedDates.includes(moment(date).format("YYYY-MM-DD"));
+
+    return (
+      <div>
+        {isWednesday ? <Tag color="green">G</Tag> : null}
+        {isMarked ? <Tag color="blue">S</Tag> : null}
+        {moment(date).format("MM/DD/YYYY")}
+      </div>
+    );
+  };
+
   const App = () => (
     <div className="compliance_tbl">
       <h3 className="title">Compliance Check</h3>
-      <Table columns={columns} dataSource={data} />
+
+      <Table
+        columns={columns}
+        dataSource={data}
+        title={() => (
+          <>
+            <span>
+              Note: <Tag color="green">G</Tag>
+              {"= GTD, "}
+              <Tag color="blue">S</Tag>
+              {"= Self-reservation "}
+            </span>
+          </>
+        )}
+      />
     </div>
   );
 
