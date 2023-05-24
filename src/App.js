@@ -21,6 +21,7 @@ function App() {
     isVerified: false,
     isGoogle: false,
     employerId: "",
+    isManager: true,
   };
   const [userData, setUserData] = useState(emptyUserData);
   const [sessionKey, setSessionKey] = useState("");
@@ -56,6 +57,7 @@ function App() {
           <Navbar
             isLoggedIn={isLoggedIn}
             userRole={userData.role}
+            isManager={userData.isManager}
             logoutCallback={logoutCallback}
           />
           <Routes>

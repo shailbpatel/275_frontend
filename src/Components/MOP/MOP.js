@@ -1,11 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { dynamicURL } from "../Utils/urlConfig";
 import styles from "./styles.module.css";
 
 const MOP = (props) => {
+  const navigate = useNavigate();
   const [oldMOP, setoldMOP] = useState(0);
   const [newMOP, setnewMOP] = useState(0);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -18,7 +19,14 @@ const MOP = (props) => {
     role: props.userData.role,
   };
 
-  console.log(data);
+  useEffect(() => {
+    if (
+      localStorage.getItem("session_key") === null ||
+      localStorage.getItem("session_key") === ""
+    ) {
+      navigate("/");
+    }
+  });
 
   const handleChange = (e) => {
     try {
