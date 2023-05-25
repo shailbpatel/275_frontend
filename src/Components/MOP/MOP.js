@@ -33,15 +33,15 @@ const MOP = (props) => {
     try {
       setnewMOP(parseInt(e.target.value));
     } catch (error) {}
-  };
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  if (newMOP < 0 && newMOP > 5) {
-    setError("New MOP should be between 0 to 5 inclusive.");
-    return;
-  }
-  const url = `${dynamicURL}/mop`;
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+    if (newMOP < 0 && newMOP > 5) {
+      setError("New MOP should be between 0 to 5 inclusive.");
+      return;
+    }
+    const url = `${dynamicURL}/mop`;
     var post_data = {};
     post_data.role = props.userData.role;
     post_data.email = props.userData.email;

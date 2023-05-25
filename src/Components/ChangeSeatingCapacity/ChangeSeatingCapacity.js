@@ -1,55 +1,73 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { dynamicURL } from "../Utils/urlConfig";
-
+import axios from "axios";
 import styles from "./styles.module.css";
 
 const ChangeSeatingCapacity = (props) => {
+  const [userData, setUserData] = useState({});
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [oldCapacity, setoldCapacity] = useState(null);
+  const [oldCapacity, setoldCapacity] = useState(0);
   const [newCapacity, setnewCapacity] = useState(null);
 
   const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
   const handleChange = (e) => {
     try {
       setnewCapacity(parseInt(e.target.value));
     } catch (error) {}
   };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const data = {
-      employerId: props.userData.employerId,
-      email: props.userData.email,
-      role: props.userData.role,
-      newCapacity: newCapacity,
-    };
-
     if (newCapacity <= oldCapacity) {
+      setSuccessMsg("");
       setError(
         "New Seating capacity should be greater than the current capacity."
       );
       return;
     }
-
-    const url = `${dynamicURL}/employer/${props.employerId}/update/mop`;
-
-    //   await axios.post(url, data);
-
-    try {
-    } catch (error) {
-      setError(error.reponse.data);
-    }
+    const url = `${dynamicURL}/seats/${userData.employerId}`;
+    var post_data = {};
+    post_data.seats = newCapacity;
+    axios.post(url, post_data)
+    .then((response) => {
+      setError("");
+      setoldCapacity(newCapacity);
+      setnewCapacity(null);
+      setSuccessMsg(response.data);
+    })
+    .catch((error) => {
+      setSuccessMsg("");
+      setError(error.response.data);
+    });
   };
 
   useEffect((e) => {
+    const localData = localStorage.getItem("user");
+    if (localData) {
+      const parsedData = JSON.parse(localData)
+      setUserData(parsedData);
+      const getSeatsUrl = `${dynamicURL}/seats/${parsedData.employerId}`;
+      axios.get(getSeatsUrl)
+      .then((response) => {
+        setError("");
+        setoldCapacity(response.data);
+      })
+      .catch((error) => {
+        setIsFormVisible(true);
+        setoldCapacity(0);
+        setnewCapacity(0);
+        setSuccessMsg("");
+        setError(error.response.data);
+      });
+    }
     setIsFormVisible(true);
-    setoldCapacity(3);
-    //   axios.get(baseURL).then((response) => {
-    //     setoldMOP(3);
-    //   });
   }, []);
+
+
   return (
     <>
       <div className={styles.main_capacity}>
@@ -87,6 +105,7 @@ const ChangeSeatingCapacity = (props) => {
                     className={styles.input}
                   />
                   {error && <div className={styles.error_msg}>{error}</div>}
+                  {successMsg && <div className={styles.success_msg}>{successMsg}</div>}
                   <button type="submit" className={styles.green_btn}>
                     Update Capacity
                   </button>
