@@ -10,6 +10,8 @@ import SeatReservation from "./Components/SeatReservation/SeatReservation";
 import ComplianceCheck from "./Components/ComplianceCheck/ComplianceCheck";
 import AttendanceReport from "./Components/AttendanceReport/AttendanceReport";
 import MOP from "./Components/MOP/MOP";
+import GTD from "./Components/GTD/GTD";
+import ChangeSeatingCapacity from "./Components/ChangeSeatingCapacity/ChangeSeatingCapacity";
 
 function App() {
   const emptyUserData = {
@@ -90,6 +92,16 @@ function App() {
               path="/employer/employerid/mop"
               exact
               element={<MOP userData={userData} />}
+            />
+            <Route
+              path="/employee/employeeid/gtd"
+              exact
+              element={<GTD userData={userData} />}
+            />
+            <Route
+              path="/employer/employerid/mop/changeseatcapacity"
+              exact
+              element={<ChangeSeatingCapacity userData={userData} />}
             />
           </Routes>
         </GoogleOAuthProvider>

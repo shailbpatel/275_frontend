@@ -1,31 +1,46 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import { dynamicURL } from "../Utils/urlConfig";
 import styles from "./styles.module.css";
 
 const MOP = (props) => {
+  const navigate = useNavigate();
   const [oldMOP, setoldMOP] = useState(0);
   const [newMOP, setnewMOP] = useState(0);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   const [error, setError] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
   const data = {
-    employerId: props.employerId,
-    emailId: props.emailId,
+    employerId: props.userData.employerId,
+    emailId: props.userData.email,
     newMOP: newMOP,
-    role: props.role,
+    role: props.userData.role,
   };
+  const [successMsg, setSuccessMsg] = useState("");
+
+  useEffect(() => {
+    if (
+      localStorage.getItem("session_key") === null ||
+      localStorage.getItem("session_key") === ""
+    ) {
+      navigate("/");
+    }
+  });
 
   const handleChange = (e) => {
     try {
       setnewMOP(parseInt(e.target.value));
     } catch (error) {}
-  };
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+    if (newMOP < 0 && newMOP > 5) {
+      setError("New MOP should be between 0 to 5 inclusive.");
+      return;
+    }
     const url = `${dynamicURL}/mop`;
     var post_data = {};
     post_data.role = props.userData.role;
@@ -65,6 +80,14 @@ const MOP = (props) => {
 
 
   return (
+    <>
+    <div className={styles.title}>
+        <Link to="/employer/employerid/mop/changeseatcapacity">
+          <h3 style={{ color: "green", textDecoration: "none" }}>
+            Please click here to change seating capacity
+          </h3>
+        </Link>
+      </div>
     <div className={styles.login_container}>
       <div className={styles.login_form_container}>
         <div className={styles.left}>
@@ -103,6 +126,7 @@ const MOP = (props) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
