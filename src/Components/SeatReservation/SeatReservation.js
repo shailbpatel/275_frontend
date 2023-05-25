@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { DatePicker, Button, Space } from "antd";
+import { DatePicker, Button, notification } from "antd";
 
 import moment from "moment";
 import axios from "axios";
@@ -9,22 +9,17 @@ import { backendURL } from "../Utils/urlConfig";
 import "./styles.css";
 
 const { RangePicker } = DatePicker;
-const SeatReservation = () => {
+const SeatReservation = (props) => {
   const [dates, setDates] = useState([]);
   const [startDate, setstartDate] = useState(null);
-  const [endDate, setendDate] = useState(null);
 
   const rangePickerRef = useRef(null);
-  const [employeeId, setemployeeId] = useState(1);
-  const [employerId, setemployerId] = useState("testEmployer");
-  const [isPreemptable, setIsPreemptable] = useState(false);
-  const [isGTD, setIsGTDe] = useState(false);
 
   const getDates = (values) => {
     if (values != null) {
       setDates(
         values.map((item) => {
-          return moment(item.$d).format("MM-DD-YYYY");
+          return moment(item.$d).format("MM/DD/YY");
         })
       );
     } else {
@@ -66,22 +61,34 @@ const SeatReservation = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = `${backendURL}/seatreservation`;
-    console.log(dates[0]);
-    console.log(employeeId);
+    const url = `${backendURL}/reservation/${props.userData.employerId}`;
     const datesToSend = {
       startDate: dates[0],
       endDate: dates[1],
-      isPreemptable: isPreemptable,
-      isGTD: isGTD,
-      employeeId: employeeId,
-      employerId: employerId,
+      email: props.userData.email,
     };
 
-    console.log(url);
-
     axios.post(url, datesToSend).then((response) => {
-      console.log(response);
+      notification.success({
+        message: "Success",
+        description: response.data,
+        style: {
+          backgroundColor: "#f6ffed",
+          borderColor: "#b7eb8f",
+          color: "#389e0d",
+        },
+      });
+    })
+    .catch((e) => {
+      notification.error({
+        message: "Error",
+        description: e.response.data,
+        style: {
+          backgroundColor: "#fff1f0",
+          borderColor: "#ffa39e",
+          color: "#cf1322",
+        },
+      });
     });
 
     setDates([]);

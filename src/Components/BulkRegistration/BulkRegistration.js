@@ -42,7 +42,6 @@ export default function BulkReservation(props) {
           color: "#cf1322",
         },
       });
-      console.log(error);
     }
 
     Papa.parse(file, {
@@ -61,7 +60,6 @@ export default function BulkReservation(props) {
         setParsedData(results.data);
         setTableColumns(tableColumns);
         setTableData(tableData);
-        console.log(results);
       },
     });
   };

@@ -76,7 +76,7 @@ function App() {
             <Route
               path="/employee/employeeid/seatreservation"
               exact
-              element={<SeatReservation />}
+              element={<SeatReservation userData={userData}/>}
             />
             <Route
               path="/employee/employeeid/compliancecheck"
