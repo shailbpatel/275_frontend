@@ -37,7 +37,6 @@ function App() {
 
   const loginCallback = (userData) => {
     setUserData(userData);
-    console.log(userData);
     setIsLoggedIn(true);
   };
 
