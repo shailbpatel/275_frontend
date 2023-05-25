@@ -20,8 +20,8 @@ export default function BulkRegistration(props) {
         "content-type": "multipart/form-data",
       },
     };
-    try {
-      await axios.post(`${dynamicURL}/bulk/reservation`, formData, config);
+    axios.post(`${dynamicURL}/reservation/bulk/${props.userData.employerId}`, formData, config)
+    .then((response) => {
       notification.success({
         message: "Success",
         description: "File uploaded successfully",
@@ -31,18 +31,18 @@ export default function BulkRegistration(props) {
           color: "#389e0d",
         },
       });
-    } catch (error) {
+    })
+    .catch((error) => {
       notification.error({
         message: "Error",
-        description: "Error uploading file",
+        description: error.response.data,
         style: {
           backgroundColor: "#fff1f0",
           borderColor: "#ffa39e",
           color: "#cf1322",
         },
       });
-      console.log(error);
-    }
+    });
 
     Papa.parse(file, {
       header: true,
