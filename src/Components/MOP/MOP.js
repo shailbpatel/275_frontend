@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { dynamicURL } from "../Utils/urlConfig";
 import styles from "./styles.module.css";
 
@@ -11,6 +10,7 @@ const MOP = (props) => {
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const data = {
     employerId: props.employerId,
     emailId: props.emailId,
@@ -26,31 +26,44 @@ const MOP = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (newMOP <= oldMOP) {
-      setError("New MOP should be greater than the current MOP.");
-      return;
-    }
-
-    const url = `${dynamicURL}/employer/${props.employerId}/update/mop`;
-
-    //   await axios.post(url, data);
-
-    try {
-    } catch (error) {
-      setError(error.reponse.data);
-    }
+    const url = `${dynamicURL}/mop`;
+    var post_data = {};
+    post_data.role = props.userData.role;
+    post_data.email = props.userData.email;
+    post_data.employerId = props.userData.employerId;
+    post_data.mop = newMOP;
+    axios.post(url, post_data)
+    .then((response) => {
+      setError("");
+      setSuccessMsg(response.data);
+      setoldMOP(newMOP);
+      setnewMOP(0);
+    })
+    .catch((error) => {
+      setSuccessMsg("");
+      setError(error.response.data);
+    });
   };
-
-  //   const baseURL = `${dynamicURL}/employerId/getmop`;
 
   useEffect((e) => {
     setIsFormVisible(true);
-    setoldMOP(3);
-    //   axios.get(baseURL).then((response) => {
-    //     setoldMOP(3);
-    //   });
+    var email = "";
+    if(props.userData.role === "Employee") {
+      email = props.userData.email;
+    }
+    const getMOPUrl = `${dynamicURL}/mop?employerId=${props.userData.employerId}&email=${email}`;
+    axios.get(getMOPUrl)
+    .then((response) => {
+      setError("");
+      setoldMOP(response.data);
+    })
+    .catch((error) => {
+      setSuccessMsg("");
+      setError(error.response.data);
+    });
   }, []);
+
+
   return (
     <div className={styles.login_container}>
       <div className={styles.login_form_container}>
@@ -81,6 +94,7 @@ const MOP = (props) => {
                 className={styles.input}
               />
               {error && <div className={styles.error_msg}>{error}</div>}
+              {successMsg && <div className={styles.success_msg}>{successMsg}</div>}
               <button type="submit" className={styles.green_btn}>
                 Update MOP
               </button>
