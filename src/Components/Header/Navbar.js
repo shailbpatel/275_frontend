@@ -6,7 +6,6 @@ import "./styles.css";
 export default function Navbar(props) {
   return (
     <nav className="nav">
-      {/* <img src="frontend/src/Components/Utils/Images/logo.png"></img> */}
       <Link to="/" className="site-title">
         Work-In-Office Reservation System
       </Link>
@@ -31,40 +30,49 @@ export default function Navbar(props) {
               <>
                 <li>
                   <Link to="/employer/employerid/bulkreservation">
-                    <button className="nav_btn">Bulk Test </button>
+                    <button className="nav_btn">Bulk Operations</button>
                   </Link>
                 </li>
                 <li>
                   <Link to="/employer/employerid/mop">
-                    <button className="nav_btn"> MOP </button>
+                    <button className="nav_btn">MOP</button>
                   </Link>
                 </li>
               </>
             ) : (
               <>
+                {props.isManager ? (
+                  <>
+                    <li>
+                      <Link to="/employer/employerid/mop">
+                        <button className="nav_btn">MOP</button>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/employee/employeeid/attendacereport">
+                        <button className="nav_btn">Attendance Report</button>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/employee/employeeid/gtd">
+                        <button className="nav_btn">GTD</button>
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <></>
+                )}
                 <li>
                   <Link to="/employee/employeeid/seatreservation">
-                    <button className="nav_btn">Seat Test </button>
+                    <button className="nav_btn">Seat Reservation</button>
                   </Link>
                 </li>
-                <li>
-                  <Link to="/employee/employeeid/attendacereport">
-                    <button className="nav_btn">Report Test </button>
-                  </Link>
-                </li>
-                {props.isManager && 
-                <li>
-                  <Link to="/employer/employerid/mop">
-                    <button className="nav_btn"> MOP </button>
-                  </Link>
-                </li>}
               </>
             )}
-
-            <Link>
+            <Link to="/">
               <li>
                 <button className="nav_btn pt-3" onClick={props.logoutCallback}>
-                  Logout{" "}
+                  Logout
                 </button>
               </li>
             </Link>
