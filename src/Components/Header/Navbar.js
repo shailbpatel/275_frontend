@@ -52,6 +52,12 @@ export default function Navbar(props) {
                     <button className="nav_btn">Report Test </button>
                   </Link>
                 </li>
+                {props.isManager && 
+                <li>
+                  <Link to="/employer/employerid/mop">
+                    <button className="nav_btn"> MOP </button>
+                  </Link>
+                </li>}
               </>
             )}
 
