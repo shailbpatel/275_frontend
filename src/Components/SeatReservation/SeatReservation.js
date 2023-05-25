@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { DatePicker, Button, Space } from "antd";
+import { DatePicker, Button, notification } from "antd";
 
 import moment from "moment";
 import axios from "axios";
@@ -9,14 +9,14 @@ import { backendURL } from "../Utils/urlConfig";
 import "./styles.css";
 
 const { RangePicker } = DatePicker;
-const SeatReservation = () => {
+const SeatReservation = (props) => {
   const [dates, setDates] = useState([]);
   const [startDate, setstartDate] = useState(null);
   const [endDate, setendDate] = useState(null);
 
   const rangePickerRef = useRef(null);
   const [employeeId, setemployeeId] = useState(1);
-  const [employerId, setemployerId] = useState("testEmployer");
+  const [employerId, setemployerId] = useState("");
   const [isPreemptable, setIsPreemptable] = useState(false);
   const [isGTD, setIsGTDe] = useState(false);
 
@@ -64,6 +64,10 @@ const SeatReservation = () => {
     return isPast || isWeekend || isBeforeNextWeek || isOutsideCurrentWeek;
   };
 
+  useEffect(() => {
+    setemployerId(props.userData.employerId);
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = `${backendURL}/seatreservation`;
@@ -78,14 +82,35 @@ const SeatReservation = () => {
       employerId: employerId,
     };
 
-    console.log(url);
+    try {
+      await axios.post(url, datesToSend).then((response) => {
+        console.log(response);
+      });
+      setDates([]);
+      setstartDate(null);
 
-    axios.post(url, datesToSend).then((response) => {
-      console.log(response);
-    });
-
-    setDates([]);
-    setstartDate(null);
+      notification.success({
+        message: "Success",
+        description: "Seat Reserved",
+        style: {
+          backgroundColor: "#f6ffed",
+          borderColor: "#b7eb8f",
+          color: "#389e0d",
+        },
+      });
+    } catch (error) {
+      notification.error({
+        message: "Error",
+        description:
+          "Something went wrong. Please try agian after refreshing the page",
+        style: {
+          backgroundColor: "#fff1f0",
+          borderColor: "#ffa39e",
+          color: "#cf1322",
+        },
+      });
+      console.log(error);
+    }
   };
 
   return (

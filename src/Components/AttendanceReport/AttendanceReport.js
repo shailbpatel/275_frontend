@@ -20,11 +20,14 @@ const AttendanceReport = () => {
   const [additionalSeats, setAdditionalSeats] = useState("0");
 
   const showModal = (week) => {
+    console.log(week.from, " ", week.to);
+
     setModalTitle(
       <Typography style={{ fontWeight: "bold", fontSize: "16px" }}>
         Attendance Report for week {week.key} ({week.from} to {week.to})
       </Typography>
     );
+
     setMeetRate("87");
     setComplianceRate("80");
     setAdditionalSeats("20");
@@ -38,6 +41,10 @@ const AttendanceReport = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const handleChange = () => {};
+
+  const handlClick = () => {};
 
   const columns = [
     {
@@ -71,6 +78,7 @@ const AttendanceReport = () => {
         <Button
           type="primary"
           shape="round"
+          onChange={handleChange}
           onClick={() => showModal({ from, to, key })}
         >
           <b>Week {i}</b>

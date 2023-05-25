@@ -19,6 +19,7 @@ function App() {
     isVerified: false,
     isGoogle: false,
     employerId: "",
+    employeeId: "",
   };
   const [userData, setUserData] = useState(emptyUserData);
   const [sessionKey, setSessionKey] = useState("");
@@ -36,6 +37,7 @@ function App() {
 
   const loginCallback = (userData) => {
     setUserData(userData);
+    console.log(userData);
     setIsLoggedIn(true);
   };
 
@@ -72,17 +74,17 @@ function App() {
             <Route
               path="/employee/employeeid/seatreservation"
               exact
-              element={<SeatReservation />}
+              element={<SeatReservation userData={userData} />}
             />
             <Route
               path="/employee/employeeid/compliancecheck"
               exact
-              element={<ComplianceCheck />}
+              element={<ComplianceCheck userData={userData} />}
             />
             <Route
               path="/employee/employeeid/attendacereport"
               exact
-              element={<AttendanceReport />}
+              element={<AttendanceReport userData={userData} />}
             />
             <Route
               path="/employer/employerid/mop"
