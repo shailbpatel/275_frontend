@@ -1,6 +1,7 @@
 .login_container {
   width: 100%;
-  min-height: 70vh;
+  min-height: 100vh;
+  background-color: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,6 +27,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: white;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -58,6 +60,17 @@
   margin: 5px 0;
   font-size: 14px;
   background-color: #f34646;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.success_msg {
+  width: 370px;
+  padding: 15px;
+  margin: 5px 0;
+  font-size: 14px;
+  background-color: #3ba437;
   color: white;
   border-radius: 5px;
   text-align: center;

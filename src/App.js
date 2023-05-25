@@ -21,7 +21,7 @@ function App() {
     isVerified: false,
     isGoogle: false,
     employerId: "",
-    isManager: true,
+    isManager: false
   };
   const [userData, setUserData] = useState(emptyUserData);
   const [sessionKey, setSessionKey] = useState("");
