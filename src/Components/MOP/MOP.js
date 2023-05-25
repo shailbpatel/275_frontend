@@ -37,7 +37,7 @@ const MOP = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  if (newMOP >= 0 && newMOP <= 5) {
+  if (newMOP < 0 && newMOP > 5) {
     setError("New MOP should be between 0 to 5 inclusive.");
     return;
   }
