@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { Space, Table, Tag } from "antd";
+import axios from "axios";
+import { backendURL } from "../Utils/urlConfig";
 import "./styles.css";
 
-const ComplianceCheck = () => {
+const ComplianceCheck = (props) => {
+
+  const [markedDates, setMarkedDates] = useState([]);
   const columns = [
     {
       title: "Week",
@@ -74,8 +78,16 @@ const ComplianceCheck = () => {
     },
   ];
 
-  //dates array received from the backend
-  const markedDates = ["2023-05-22", "2023-05-25", "2023-06-01", "2023-07-03"];
+  useEffect(() => {
+    const url = `${backendURL}/${props.userData.employerId}/${props.userData.email}`;
+    axios.get(url)
+    .then((response) => {
+      setMarkedDates(response.data);
+    })
+    .catch((e) => {
+      setMarkedDates([]);
+    });
+  }, []);
 
   const data = [];
   let startOfWeek = moment().startOf("isoWeek");
