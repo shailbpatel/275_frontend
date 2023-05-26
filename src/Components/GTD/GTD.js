@@ -1,40 +1,54 @@
-import React, { useState } from "react";
-import { Select, Button, Space } from "antd";
-import { dynamicURL } from "../Utils/urlConfig";
+import React, { useEffect, useState } from "react";
+import { Select, Button, Space, notification } from "antd";
+import { backendURL } from "../Utils/urlConfig";
 import axios from "axios";
 import "./styles.css";
 
 const GTD = (props) => {
   const [gtdDay, setGtdDay] = useState("");
-  const [error, setError] = useState(null);
 
   const onChange = (value) => {
     setGtdDay(value);
   };
 
+  useEffect(() => {
+    const url = `${backendURL}/gtd/${props.userData.employerId}/${props.userData.email}`;
+    axios.get(url)
+    .then((response) => {
+      setGtdDay(response.data);
+    })
+    .catch(() => {
+      setGtdDay(null);
+    });
+  }, [props]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = {
-      employerId: props.userData.employerId,
-      email: props.userData.email,
-      role: props.userData.role,
-      name: props.userData.name,
-      gtdDay: gtdDay,
-    };
-
-    // const url = `${dynamicURL}/${props.userData.role}/employeeid/gtd`;
-
-    // try {
-    //   axios.post(url, data).then((response) => {
-    //     console.log(response.data);
-    //   });
-    // } catch (e) {
-    //   console.log(e.response.data);
-    //   setError(e.response.data);
-    // }
-
-    setGtdDay(null);
+    const url = `${backendURL}/gtd/${props.userData.employerId}/${props.userData.email}/${gtdDay}`;
+    axios.post(url).then((response) => {
+      notification.success({
+        message: "Success",
+        description: response.data,
+        style: {
+          backgroundColor: "#f6ffed",
+          borderColor: "#b7eb8f",
+          color: "#389e0d",
+        },
+      });
+    })
+    .catch((e) => {
+      notification.error({
+        message: "Error",
+        description: e.response.data,
+        style: {
+          backgroundColor: "#fff1f0",
+          borderColor: "#ffa39e",
+          color: "#cf1322",
+        },
+      });
+      setGtdDay(null);
+    });
   };
 
   const onSearch = (value) => {
@@ -54,6 +68,7 @@ const GTD = (props) => {
         <div className="gtd-form">
           <form onSubmit={handleSubmit}>
             <Select
+              value={gtdDay}
               showSearch
               placeholder="Select a day"
               optionFilterProp="children"
