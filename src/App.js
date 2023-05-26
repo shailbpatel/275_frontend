@@ -81,7 +81,7 @@ function App() {
             <Route
               path="/employee/employeeid/compliancecheck"
               exact
-              element={<ComplianceCheck />}
+              element={<ComplianceCheck userData={userData}/>}
             />
             <Route
               path="/employee/employeeid/attendacereport"
